@@ -1,0 +1,33 @@
+1. 강제 타입 변환
+기본 자료형이나 부모-자식간의 타입 변환은 강제 타입이 적용가능하지만, 그 외엔 별도의 lib method를 활용해야 한다.
+ex) char char = 'A'; int i = (int) char; // String str = "ABC"; (String은 참조자료형) // int i = 3; String strType = i.toString();
+
+2. 트윈애니메이션
+이미지 여러장으로 이동하는 방식을 구현하는 프레임 애니메이션과 달리, 트윈애니메이션은 한장의 이미지를 "이동, 회전, 투명도 등" 애니메이션화한 것.
+-res 내에 anim 폴더와 xml 파일이 필요하다.
+-fromDeltaX, toDeltaY의 좌표값을 사용
+-duration 지속시간
+-repeatCount infinite 혹은 standard
+-interpolator 이동값에서 어떠한 방식으로 이동할지 정할 수 있다. linear - cycle(작용/반작용 원리)가 가장 빈번하게 사용
+-회전의 경우 pivotX, pivotY 좌표에서 좌우로 회전한다. 각도는 "0%p","~%p"
+
+3. 생명주기
+한 activity에서의 실행주기
+OnCreate - OnStart - OnResume - Operation - Onpause - OnStop - 소멸
+순서로 진행되며 그렇기에 OnCreate method가 가장 먼저 시작되는 main method인 것이다.
+나머지 주기도 @Override로 불러와서 각 주기마다 코드를 짤 수 있다.
+
+4. 변수지정과 초기화
+모든 명령(초기화)은 method내에서 실행해야 한다.
+클래스 내에서 선언한 전역변수는 자동으로 초기화가 이루어 진다.
+
+5. 웹 사용 권한 허용
+안드로이드는 자바와 다르게 네트워크를 사용하기 위해 권한을 허가시켜야 한다.
+manifest.xml에서 
+<uses-permission android:name="android.permission.INTERNET" />
+선언 후에, thread 이용.
+thread 변경을 하지 않는다면, Strict mode 이용, 
+StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+StrictMode.setThreadPolicy(policy);
+PC-모바일 어디서나 수정 가능한스마트에디터3.0으로 쓴 글입니다더보기
+
