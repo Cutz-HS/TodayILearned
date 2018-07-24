@@ -1,0 +1,26 @@
+1. 리스트: 파이썬에서 리스트는 변수에 상관없이 사용-
+- random.choice(list): list내에서 랜덤으로 선택하는 함수
+- random.uniform(start, end): start, end내에서 부동소수좀 리턴하는 메소드
+- random.gauss(avg, Standard deviation): 가우시안 분포내에서 랜덤으로 실수를 리턴하는 메소드
+가우시안 분포: 정규분포
+푸아송 분포: 정해진 시간 안에 사건이 n번 발생할지 예측(산출)하는 것 *각각의 횟수는 독립적이어야 푸아송 분포가 성립된다.
+
+2. eval(): string 내의 정규식을 구현하는 함수
+
+3. print("%d %d" %(d1, d2)): 다수의 print %사용시, 괄호 이용 (%%는 %출력
+
+4. print("" end= ): 반복 발생시 프린트의 끝마다 end를 추가한다.
+
+5. zip(A, B) - 짝짓기를 하여 dict화 시키는 함수
+
+6. dict안에는 순서가 존재하지 않는다. 대신 dict.keys()를 활용해 리스트화하여 정렬할 수 있다.
+
+7. dict의 key만 모아놓은 {}를 set이라 칭한다. set은 중복값이 없기 때문에, 다양한 방법으로 사용할 수 있다. ex)로또번호
+
+8. comprehension: 반복문으로 apped의 작업을 한 줄로 단순화 시킨 것.
+ex) 
+list=[ i(수식) for j in range(1,10) (if절) ]
+
+9. 변수 초기화(지정)은 shallow copy(위치를 기억), .copy() 혹은 =list[:]는 deep copy(새로운 메모리 할당)
+
+10. list.pop(): 리스트의 맨 뒤를 빼내고 제거한다.
