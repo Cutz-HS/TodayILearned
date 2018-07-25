@@ -1,0 +1,22 @@
+1. List 함수
+- newList=sorted(list): 리스트 정렬하고 새로운 리스트를 만들어냄
+- insert(위치, value): 삽입
+- print(list.sort())에서 None값: 리턴값이 없기 때문에 정의되는 시점에서 None값 출력
+- zip()-> 2개의 리스트를 Tuple혹은 dict로 합치기
+
+2. dict
+dict의 추가는 dict[key]=value 혹은 선언 후 지정
+- dict.keys(), dict.values(), dict.items()는 모두 튜플화 -> list()로 변환가능
+- 딕셔너리 순서정렬 -> sorted(dict.items(), keys=operator.itemgetter(0,1) #0은 키, 1은 밸류 // 튜플화하였을 때 순서 기억
+
+3. 선택정렬&버블정렬
+선택 i는 첫째부터 마지막-1까지& j는 2번째부터 마지막까지
+버블 i는 첫째부터 마지막-1까지& j는 j+1과 모두(마지막-1에서 -i로)
+복잡도는 열로 n번 / 행으로 n-1 / n(n-1) 후에 반으로 줄여나가므로 1/2, 즉 n(n-1)/2 -> O(n2)
+
+4. 파이썬 내 변수교환 (Temp 이용이 아닌)
+list[i], list[j]=list[j], list[i]
+
+5. Stack
+순차구조, LIFO / queue, FIFO
+링크드리스트 또한 구현할 수 있다.
