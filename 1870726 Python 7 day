@@ -1,0 +1,83 @@
+1. 파일 입출력
+- variable = open("location","mode",(encoding=''))
+-> mode == r, w, r+, b(binery), rb, wb
+- close()
+-> close()를 안하려면 with ~ as ~ 문
+
+2. with -as
+- with open() as variable:
+      code continue
+
+3. txtfile
+- readline()
+- radelines() = list
+
+4. excpet 발생오류:
+그 후 else문은 바로 나와야 한다.
+- IOERROR: 파일처리오류
+
+5. txt파일의 문단
+문단은 시각화로 빈 공간이지만, 실제로는 코드가 존재한다. -> if txt.readline()=="": 라면 문단에서 조건 성립이 아닌 모든 텍스트를 출력한다.
+
+6. write
+- write() - byte단위
+- writelines()
+- seek() - byte 단위
+
+7. binery file
+- 읽기/쓰기 rb,wb
+- read(), wirte() -> byte -> int(ord(read()))
+
+8. Tkinter 모듈
+-code
+window=Tk()
+canvas=Canvas(window, height=X, width=Y)
+canvas.pack()
+windown.mainloop()
+canvas.create.image(size,size), image="location", state="normal"
+
+9. Sutile 모듈
+Sutile.copy("주소", "주소")
+
+10. 문자열
+split(" ") -> check, 변환
+isdigit(), isalpha(), isalpium(), isspace()
+
+11. 매개변수 추후지정
+def func(*para) # **para==dict
+    result=0
+    for num in para:
+        result=result+num
+
+12. from class import method
+method 즉시 소환. 객체 클래스의 소환이 필요없다.
+
+13. p337 파일출력
+#for문 이용
+openFile=open("C:/Temp/aaa.txt, "r")
+allList=openFile.readlines()
+for line in allList:
+    print ("%s" line, end="")
+openFile.close()
+
+#while문 이용 // close 잊지 말것, 혹은 with as 활용
+openFile=open("C:/Temp/aaa.txt", "r")
+while True:
+    line=openFile.readline()
+    if line=="":
+        break
+    print("%s" %line, end="")
+openFile.close()
+
+14. p344 파일명 입력받아 복사
+inputFile1=input("파일명: ")
+inputFile2=input("파일명: ")
+openFile1=inputFile.open(inputFile1,"r")
+openFile2=inputFile.open(inputFile2,"r")
+allList=openFile1.readlines()
+for line in allList:
+    openFile2.wirtelines(line)
+    
+openFile2.close()
+openFile1.close()
+print("복사 끝")
