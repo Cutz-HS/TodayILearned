@@ -1,0 +1,49 @@
+1. a^b: 배타적논리합
+- boolean일경우, a or b True -> True
+- integer일 경우, 비트단위 Exclusive OR
+
+2. mutable
+객체변수 변화 -> 메서드 호출로 방지
+파이썬은 클래스에서 캡슐화가 지원되지 않기 때문.
+
+3. lambda function
+varialbe=lambda varialbe1, variable2: expression
+#lamda X!
+
+4. map()
+모든 내용을 하나씩 적용하는 함수
+- map(mehotd, list) -> map내에서 람다함수를 이용해 한번에 푸는 방식으로도 많이 사용 또는 컴프리헨션 이용
+
+5. package(모듈 모음)
+from class|package|module import method|*
+- *은 모든 메소드를 의미, 이렇게 소환했을 때, class. 형식이 필요 없어짐
+
+6. yield: yield필드는 우선, 반복
+
+7. tkinter module
+- window.Tk() -> geometry, resizable, label=Label(window,text=""), window.mainloop() //중요, 끝내는 함수
+                 photo=PhotoImage(file="") -> label(window, image=photo), label.configure(text="추가내용")
+  chk -> Checkbutton(window, text="", variable=IntVal(), command=method)
+  *commend는 연결되는 함수
+  
+8. for문 내에서 여러개의 변수를 꺼낼 수 있다. for a,b,c in tuple:
+
+9. import bisect: 이진탐색 모듈
+     bisec(list, value)
+     
+10. slicing in list [::]
+
+11. for (i , value) in enmmerate(list):
+enmerate함수는 하나씩 소환하는 함수
+dict(v, i) for i, v in enumerate(some_list): #dict로
+
+12. iterator: 값을 차례대로 꺼낼 수 있는 객체
+#dict를 keys()와 value()의 형태로 꺼냈을 때 구현됨.
+
+13. zip(): zip함수는 튜플의 형태로 리스트화 (두가지의 리스트 등을)
+
+14. defaultdict -> 초기화 value로 사전 생성
+from collections import defaultdict
+defaultdict(list)
+
+15. set.add() -> set은 append가 아닌 add
