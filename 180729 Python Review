@@ -1,0 +1,20 @@
+1. (*args **kwargs)
+*매개변수(arg와 kawrgs는 관용어구) para, 매개변수를 임의로 선정후 후지정(튜플화하여)
+** -> dict의 value값 소환
+
+2. 커링: 매개변수 중 하나를 받아 커리시킨 후, 새로운 함수를 만드는 것
+주로 lambda를 활용-
+ex) def add_nums(x, y):
+        return x+y
+    add_five=lambda y: add_nums(5,y)
+    # y is curried
+    
+3. yield: iterlator에서 return 대신 사용
+
+4. generator [] :
+
+5. xrange: range를 필요한 상황에서 메모리를 사용하는 range, but in python3, 기본 range가 xrange를 대체했다.
+
+6. openfile.seek(int): 지정위치로 이동
+
+7. int(""): ValueError -> if 조건절 
