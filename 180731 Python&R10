@@ -1,0 +1,44 @@
+<python>
+1. string.strip(): 공백을 제거
+
+2. string.split("~"): 나눠서 각자 리스트로 append
+
+3. %debug & %pdb: Ipython 콘솔에서 디버깅 디테일
+
+4. import - reload: 파이썬은 import -> 코드를 캐시에 저장 / reload를 한다면, 실행시마다 카피본을 생성한다.
+
+5. randn(행, 열)
+
+6. numpy 라이브러리
+   1) 벡터연산 / 다차원 배열 ndarray
+   2) 표준수학함수
+   3) 선대, 난수, 푸리에 변환 기능
+   4) C++, C, 포트란 언어 읽고 쓰기 가능
+   
+7. np.array(행, 열, 차원)
+ - ndim() : 차원
+ - shape(): 행열
+ - np.arange(행): 배열
+ 
+<R>
+1. 자료구조유형
+ 1) vector: 1차원 동일 자료형
+ 2) matrix: 2차원 동일 자료형
+   - matrix(value, nrow=행, ncol=열, byrow=FALSE)
+   - 이름, 매개변수로 dimnames=list(c(각자 이름, )
+   - matrix -> value 끼리 연산 가능
+   - t(x) -> 역행렬
+   - vbind / cbind: 합치기
+   - as.vector() / drop() -> 변환
+ 3) dataframe: 2차원 여러자료형
+   - dataframe(vector1, vector2, vector3)
+   - 문자열을 factor type으로 반환 (string type을 원한다면, stringAsFactors=False 값 입력)
+    *factor: 스칼라타입의 자료형(int, double, logical...)-> 연산이 불가
+       - is.facotr() / leverls() / table()
+ 4) list: 다차원의 여러자료형
+   - (key, value)의 형태
+   - list(key1=value1, key2=value2..)
+   - length(list) -> key개수 / length(list$key) -> value 개수
+   - list[[1/2]]
+ 5) array: 다차원 동일자료형
+   - array(수, dim=c(row, col, dim))
