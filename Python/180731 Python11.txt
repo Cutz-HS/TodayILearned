@@ -1,0 +1,13 @@
+﻿<python>
+1. String lib
+ - lstrip(): 왼쪽 공백 삭제
+ - rstrip(): 오른쪽 공백 삭제
+ - strip(): 양쪽 공백 삭제
+ - string.startwith(“”) -> T/F
+ - find(search, start, end)
+ - search(int)
+ - “”in string -> T/F (upper/lower 구분)
+ - dir(str) -> lib
+ - search /replace
+ - str[int]: searching O / assign X
+ - print(“ “ , end= )
