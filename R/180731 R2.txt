@@ -1,0 +1,18 @@
+﻿<R stat>
+1. 자료 -> 양적(연속/이산) / 질적(명목/순서)
+
+2. 표와 그래프
+ - 도수분포표: 행과 열로 variable과 value
+ - table -> 도수분포표
+ - columnvector로 변환
+   as.matrix(table) -> 열로 저장
+   x=y[,1] -> 행으로 연산 / [1,1]로 한다면, 1행 1열만 저장
+   round( , digits=1)
+- Pie graph
+   pie(변수, label(명목), main=”제목”)
+- 줄기 잎: stem() -> 분포도를 보기 쉬워짐
+
+3. 중심과 퍼짐측도
+- dot diagram(점도표)
+- 중간값과 평균: 중간값은 이상데이터에 영향이 적다.
+- 표본분이수: 75%(Q3) - 25%(Q1) = IQR
