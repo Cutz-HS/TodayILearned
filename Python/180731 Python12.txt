@@ -1,0 +1,12 @@
+﻿<python>
+1. np 명령어
+ - np.empty([2,3,2]) -> 초기화값이 아니다.
+ - np.arange(int) -> 1D array
+ - .dtype -> type
+ - astype -> array type change
+ - 브로드캐스팅: 크기가 다른 배열 간의 연산
+
+2. list[a:b]= value -> list의 range assign은 불가능
+   array[a:b]= value -> array는 가능하다. (view) -> 따라서 copy는 별도의 method
+
+3. 색인 축과 배열이 같다면 auto로 Boolean indexing이 가능하다.
