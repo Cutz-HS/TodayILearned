@@ -59,3 +59,24 @@
  - °³ÀÎÀû ¿¬½À: ÇÁ·Î±×·¡¹Ö, µ¥ÀÌÅÍ¸¶ÀÌ´×(¾Ë°í¸®Áò), ¸Ó½Å·¯´×, µö·¯´×
  ¢º °è¼ÓÇØ¼­ °øºÎÇØ¾ß ÇÑ´Ù. (Æò»ý, ¿µ¾î) / ´ë¼öÇÐ(¹ÌºÐ), Åë°è, ¼±Çü´ë¼ö(Çà·Ä, º¤ÅÍ)
 
+10. Á¤±ÔÇ¥Çö½Ä
+ ¢º import re
+  - re.compile('pattern') -> re°´Ã¼·Î ÄÄÆÄÀÏÇÏ¿© ÆÐÅÏ°ú ºñ±³
+  - patternÀº Á¤±Ô½ÄÀ¸·Î ÀÌ·ïÁø´Ù. =[A-Za-z0-9°¡-ÆR@#$%]{min,max}
+    -> Áß°ýÈ£ ¼ö, ¼ö´Â ¹Ýº¹ÀÌ ÀÌ·ïÁö´Â ¼ö¸¦ ÀÇ¹ÌÇÑ´Ù. patternÀÎ½Ä ½ÇÆÐ ½Ã ¹Ýº¹
+  - re.findall(""): ÀüÃ¼ Ã£±â
+  - re.match(""): ½ÃÀÛÁ¡
+  - re.search(""): Ã³À½ ¸¸³ª´Â ÆÐÅÏÀÏÄ¡
+  ¢º °øºÎ¿Í ½Ç½À ÇÊ¿ä
+
+[algorithm]¢º
+1. »ðÀÔÁ¤·Ä
+ - b.search·Î Å½»öÀ» ¹Ù²Ù¸é nlog·Î º¯È­ÇÏÁö¸¸ swap´Ü°è°¡ ÀÖ±â ¶§¹®¿¡ ¿©ÀüÈ÷ O(n2)
+ - »ðÀÔÁ¤·ÄÀº Ãß°¡ÀûÀÎ ¸Þ¸ð¸®¸¦ »ó¼ö°ø°£À¸·Î¸¸ ¼Ò¸ðÇÑ´Ù. O(1) -> temp º¯¼ö
+2. ÇÕº´Á¤·Ä
+ - recursion tree -> ÃÑ logn+1´Ü°è / n ´Ü¸»³ëµå
+ - ÇÕº´Á¤·ÄÀº ¸Þ¸ð¸® °ø°£ º¹Àâµµ°¡ O(n)¸¸Å­ ÇÊ¿äÇÏ´Ù. Ãß°¡ÀûÀÎ °ø°£ (n°ú rºÐÇÒÀ» À§ÇÑ)
+ ¢º µ¥ÀÌÅÍ Å©±â°¡ Ä¿Áö¸é ½Ã°£º¹Àâµµ»Ó¸¸ ¾Æ´Ï¶ó °ø°£º¹Àâµµµµ Áß¿äÇÏ´Ù.
+ - ¿¹¸¦ µé¾î, ÆÄÀÌ½ã¿¡¼­ ÇÕº´Á¤·Ä 2.2nlogn mis / »ðÀÔÁ¤·Ä 0.2n^2 / C  »ðÀÔ 0.01n^2
+  ¢º ÇÏÁö¸¸ µ¥ÀÌÅÍ Å©±â°¡ Ä¿Áö¸é °á±¹ »ó¼öº¸´Ù Áö¼öÀÇ °ªÀÌ ÈÎ¾À ÀÇ¹Ì°¡ Ä¿Áø´Ù.
+ - °ø°£º¹Àâµµ ¹®Á¦¸¦ ÇØ°áÇÏ±â À§ÇÑ inplace-mergesort°¡ Á¸ÀçÇÏÁö¸¸, È¿À²¼ºÀÌ ÁÁÁö ¾Ê´Ù.
