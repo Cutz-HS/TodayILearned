@@ -1,0 +1,54 @@
+[python-analysis]¢º
+1. ¸ŞÅ¸Ç¥Çö&Ç¥Çö
+ - \d: ¼ıÀÚ
+ - \D: ¼ıÀÚ°¡ ¾Æ´Ñ °Í(\^d)
+ - \w: ¹®ÀÚ+¼ıÀÚ (=0-9A-Za-z)
+ - \s: space = [\t \n]
+ - \S: not space
+
+2. re ¸ğµâ
+ - re.compile(" ") = r" "
+ - match -> ½ÃÀÛÁ¡ ºñ±³
+ - search -> ÆĞÅÏ°ú ÀÏÄ¡ÇÏ´Â °Í search (Ã¹¹øÂ° Ãâ·Â ÈÄ break)
+ - group() -> match object¸¦ str·Î *1ºÎÅÍ ½ÃÀÛ
+ - findall -> ÀüÃ¼, ¹İº¹ -> ¸®½ºÆ® return
+ - finditr() -> iterator·Î return
+ - sub(pattern, ¹Ù²Ü ¹®ÀÚ, str, count=n) -> pattern¿¡ ÀûÇÕÇÑ ¹®ÀÚ¸¦ º¯°æ
+
+
+3. ±âÈ£
+ - "." -> ¸ğµç ¹®ÀÚ(\n Á¦¿Ü)
+ - "*" -> ¿©·¯ºĞ ¹İº¹, (¾Õ ¹®ÀÚ¸¦ 0¹ø ÀÌ»ó ¹İº¹)
+ - "+" -> 1¹øÀÌ»ó ¹İº¹(¶ç¾î¾²±â ¾Õ±îÁö ´Ü¾î)
+ - "?" -> ÀÖ¾îµµ µÇ°í ¾ø¾îµµ µÇ´Â (¾Õ ¹®ÀÚ)
+ - "^" -> ´ë°ıÈ£ ¹Û¿¡ ÀÖ´Ù¸é ½ÃÀÛ¹®ÀÚ ¸ÅÄª / ¾È¿¡ ÀÖ´Ù¸é ¹İ´ë
+ - [] -> ¶Ç´Â µû¶ó¼­ [A-Z] -> A¿¡¼­ Z±îÁö Áß ÇÏ³ª
+
+4. Á¤±Ô½Ä±×·ìÈ­
+ - r"(?P<name> )"
+  -> ±×·ìÈ­´Â group(1)ºÎÅÍ! group(name)À¸·Î ¼ÒÈ¯°¡´É
+  -> grouping write´Â "\g<name or num> (*1ºÎÅÍ ½ÃÀÛ)
+
+5. compile ¿É¼Ç
+ ¢º ¸Å°³º¯¼ö ¾È¿¡ Ãß°¡·Î ¿É¼ÇÀ» ³ÖÀ» ¼ö ÀÖ´Â º¯¼öµé
+ - re.I (ignore code): ´ë¼Ò¹®ÀÚ °ü°è¾øÀÌ Á¤±Ô½Ä ¸ÅÄª
+ - re.DOTALL, re.S -> ¸ğµç ¹®ÀÚ // . ÀÇ ¿ªÇÒ°ú ºñ½Á
+ - re.M(multi line) -> ^(¹®ÀÚ¿­ Ã³À½), $(¹®ÀÚ¿­ ³¡) , re.M Ãß°¡
+ - re.X (verbose): ¿©·¯ ¶óÀÎÀ» Á¤±Ô½ÄÈ­
+
+6. ÇÑ±ÛÄÚµå
+ - °¡-ÆR / ¤¡-¤¾ / ¤¿-¤Ó
+
+7. À¥ÄÜÅÙÃ÷°¡Á®¿À±â
+ ¢º urllib ¶óÀÌºê·¯¸® ÀÌ¿ë <urllib.retrieve>
+  - import urllib.request as rq
+    rq.urlretrieve(url, "ÀúÀåÀ§Ä¡")
+ ¢º º¯¼ö <urllib.urlopen>
+  - savename="ÆÄÀÏÀÌ¸§"
+    memory=rq.urlopen(url).read()
+    with open(saveName, mode="wb") as f:
+        f.write(memory)
+ ¢º url (json/xmlÀÇ ¹®¼­ °¡Á®¿À±â) <urllib.parse>
+  - import urllib.parse
+
+

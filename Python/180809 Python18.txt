@@ -1,0 +1,29 @@
+[python-analysis]▶
+1. beautifulSoup
+ ▶일종의 parser / 강력한 기능 지원
+ ▶parsing: 주어진 dat를 parser 도구를 이용해 원하는 데이터(value)를 추출하는 행위
+  - soup: findall.("tag"), string
+  - 변수 내 value 찾기 -> i.attrs['href'] (value값 출력)
+ ▶ 태그 직접 지정
+  - tag node(" table > node > #id > .class) * 띄어쓰기 굉장히 중요
+  - select & find_all() -> list return
+    -> .string / .text -> 출력한다면, html 내용이 그대로 출력
+  - select_one & find() -> return
+  
+ ▶ 조건넣어서 출력
+  - li[data='us']직접지정
+  - condition={} -> find(" ", condition) // 딕트넣어 조건 입력
+  - find/find 타고가기
+
+2. 웹사이트에서 지정
+ ▶ F12 > 마우스 클릭 지정 > copy selector (html node)
+ - import urllib.request
+ - url=""
+ - urlopen(url).read().decode='utf-8'
+ - soup화 -> 출력
+
+3. 정규식
+ - [/.] -> 의미가 있는 문자의 경우, 파이썬처럼 \.로 실행한다면 그대로 출력 
+
+4. lambda 함수
+var= lambda var1(매개변수) : a+var1
