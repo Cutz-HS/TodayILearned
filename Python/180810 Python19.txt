@@ -1,0 +1,41 @@
+[python-analysis]▶
+1. 상대경로 웹주소 지정
+ ▶ from urllib.parse import urljoin
+  - urljoin(기존주소, 연결주소)
+   - 연결주소(" .. : 한 단계 전)
+ * 수치에 ,가 포함되어있다면. int강제변환이 불가능하다. replace 혹은 정규식 활용
+
+2. 쿠키, 세션
+ - http -> http는 통신규약(서버<->클라이언트 약속)
+ - 서버는 index.html 문서에 클라이언트에게 전송(초기화면): html태그 전송
+ - 클라이언트는 (html문서) 해석(웹 브라우저)
+ - 통신과정에서 서버->클라 응답코드전송
+   -> 200(정상), 400대(페이지주소에러), 500대(서버내부)
+ ▶쿠키: (과자 부스러기), 클라이언트 내부에 저장 ex) 로그인기록, 하루 광고안보기 등
+ ▶세션: 쿠키정보를 서버에 저장하여 보안성을 높인 것(유사개념)
+ 
+3. 웹 로그인 접속해 내 정보 가져오기
+ ▶ import requests
+  - session=requests.session() -> 세션객체 생성
+  - session.post() // session.get() -> 같은 기능으로 request이나 post는 보안/get은 일반(속도)
+  - post(url, data=info)  ▶ 파이썬에서 info는 사전으로 전송한다.
+ ▶ 로그인한 접속 이후 get/post()를 통해서 연결
+  - session.get() -> 추가접속 url
+ 
+4. 도서목록 가져오기
+ ▶ html parse에서 "가격준비중"과 같은 생각지 못한 변수가 존재할 수 있다.
+ ▶ 이러한 점을 방지하기 위해선 최대한 공통적인 리스트&목록으로 만들어준 뒤 활용
+  - urlopen(url).read() *read 꼭
+
+5. 한글 -> 16진수 인코딩
+ ▶ import urllib.parse // var=urllib.parse.quote("")
+
+6. 파일이 존재하지 않을 시 웹 xml을 파일로 저장하기
+ ▶ import os.path
+ - if not os.path.exists(fileName):
+         req.urlretrieve(url, fileName) # retrieve 웹에서 반환해 가져오는 기능
+
+7. 특정 태그를 키로 해당하는 내용을 DICT로 가져오기
+  ▶ 태그를 포함하는 select("큰 태그") for문을 돌려, dict가져오기
+   - dict내 키 값 중복은 -> if절 처리 (if key in dict:) // value는 리스트처리
+ 
