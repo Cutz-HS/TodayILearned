@@ -1,0 +1,24 @@
+[python-analysis]▶
+1. 동적페이지
+ ▶ 페이지 주소의 변환이 없이 자체적인 자바스크립트 혹은 숨김/표현 기능을 통해 변화되는 것
+
+2. 동적페이지 스크래핑
+ ▶ from selenium import webdriver
+  - code  
+    driver=webdrvier.chrome(path) # path=chromedrvier.exe 다운로드 필요
+    drvier.get(url)
+    driver.page_source (html) -> soup=BS()
+   # 동적실행
+    driver.find_element_by_xpath("chrome xpath copy address").click()     # by_link_text 등도 가능  
+   # 중간중간 delay를 위한 time.sleep(sec) 필요
+
+3. BeautifulSoup - select vs find_all
+ ▶ select는 (+CSS)를 포함해 탐색 진행
+ ▶ find는 CSS를 포함하지 않지만, 더 빠른 장점이 있다.
+   - find는 매개변수로 text=True가 지정이 가능하다. (리스트화의 간편)
+  - html태그를 범위로 타고가는 것이 빠른지, 직접지정이 빠른지는 공부 필요
+
+4. BeautifulSoup - string vs text
+ ▶ string은 NavigableString(Unicode obj)의 string만 변환한다.
+ ▶ text는 html태그 내의 내용을 모두 변환한다. (unicode)
+  ex) <td></td>의 경우, string은 None // text는 \s와 같은 공백을 반환한다. 
