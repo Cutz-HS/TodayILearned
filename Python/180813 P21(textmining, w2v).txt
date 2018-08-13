@@ -1,0 +1,51 @@
+[python-analysis]▶
+1. 형태소분석을 위한 사전작업 / 자바 연동
+ - 환경변수 지정
+  JAVA-HOME 환경변수 지정, path설정: 컴파일러를 다른 경소에서도 실행가능하도록
+  path-%JAVA-HOME%bin
+  - classpath .; 추가
+  - JPYPE 다운로드 -> pip install
+
+2. konlpy
+ ▶ 품사 태깅 클래스
+  - 다양한 LIB이 존재 kkma / twitter 등
+  - corpus package(말뭉치): 말뭉치로 태깅 (사전제작된 사전)
+  - 랜덤텍스트생성 // 쳇봇의 데이터 참고 -> 필요한 용도에 따라 알맞게 사용
+  - 데이즈이론 (조건부확률)
+
+3. 형태소분석
+ ▶ 자연어 문장을 형태소로 분할하여 품사를 판별
+  - 영어는 축약형, 띄어쓰기만 주의하면 쉽게 판별
+  - 아시아권 언어는 매우 어렵다.
+  - 현재 파이썬을 이용한 라이브러리에는 AI기술이 포함되어 있지 않다.
+
+4. 트위터(형태소분석 모듈)
+  - twit(var) = Twitter() -> 인스턴스 생성
+  - twit.pos("str", norm=True, stem=True)
+    (마루코프모델)
+ 
+5. codecs
+ ▶ 파일 입출력 라이브러리
+  - codecs.open(filename, "r", encoding="") -> open과 비슷
+  - get.text() ->text화
+  - split("\r\n")
+
+6. dict sort
+ ▶ items()와 sorted를 이용해 정렬
+
+7. sorted()
+ ▶ sorted(list, key=lambda x:x[index], reverse=Tre)
+
+8. Word2Vec
+ ▶ 문장을 단어단위의 벡터로 변환하여 서로간의 관계를 비교
+ ▶ 워드 임베딩: 단어를 벡터공간에 표현(거리를 위해 유클리디안 거리//코사인유사도(내적) 이용)
+   ▶ 단어의 문맥적 의미가 보존된다.  
+      - gensim 설치
+      - from gensim.models import word2vec
+        word2vec.Word2Vec(data, size=200, window=2, iter=10, min_count=10, sg=1)
+         ▶ size:차원 / iter: 학습횟수 / window: 단어간 거리범위 / min_count: 최소누적횟수 / sg: 거리알고리즘
+   - model=word2vec.Word2Vec.load("file")
+   - print(model.most_similar("") -> 출력값, 단어 / 상관관계수
+    - positive // negative
+
+9. if not in [리스트를 만들기]
