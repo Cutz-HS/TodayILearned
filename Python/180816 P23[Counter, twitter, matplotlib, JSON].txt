@@ -1,0 +1,47 @@
+[python-analysis]▶
+1. os.path
+ ▶ 파일과 관련된 함수처리
+  - if not os.path.exists(file):
+        req.urlretrieve(url, fileName)
+
+2. Counter
+ ▶ from collections import Counter
+  - var = Counter(list); var.most_common() -> 내림차순
+         -> dict                         -> tuple
+3. def a(n=300): -> 매개변수 n을 입력하지 않을 시 300 default값
+
+4. Tiwtter.nouns(str) -> 명사만 추출
+
+5. matplotlib 한글 깨지지 않도록 하는 코드
+ from matplotlib import pyplot as plt
+ import matplotlib
+ from matplot import font.manager.rc
+ import platform
+
+ if platform.system()=="Windows":
+     font_name=font_manager.FontProperties(fname="c:/Windows/Fonts/malgun.ttf").get_name()
+     rc('font', family=font_name)
+ matplotlib.rcParams['axes.unicode_minus']=False
+
+6. enumerate(list)
+ ▶ list요소 하나씩 index를 붙여, index와 content로 분리 출력
+
+7. matplotlib
+ ▶ plt.plot//plt.bar(x,y)
+  - xlabel / ylabel / title
+  - plt.xticks([i for i, - in enumerate(list)]
+        ▶ ticks는 마크표시
+
+8. '_' var
+  ▶ 뽑아낸 변수를 쓰지않는 다는 표시(일종의 문법)
+
+9. JSON lib
+ ▶ JSON파일을 파이썬에 dict형식으로 불러오기 위한 라이브러리
+  - import json
+    json.load()
+
+10. if 'key' in dict:
+  ▶ key가 dict안에 있다면, 이러한 코드를 익숙하게 할 것.
+
+11. defaultdict
+  ▶ from collections import defaultdict(int) -> 0으로 초기화
