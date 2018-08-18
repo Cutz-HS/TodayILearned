@@ -1,0 +1,17 @@
+▶[python-analysis]
+1. Bs의 find 함수는 html 태그를 >가 아닌 "","" 방식으로
+
+2. from 파일명 import 클래스
+ ▶ 인스턴스 생성(var=class())가 선행되어야, self를 인식하고 모듈들을 임포트할 수 잇다.
+
+3. dict 정렬
+ ▶ list=sorted(dict.items(), key=lambda var: var[1](value), reverse=True)
+
+4. 정렬 라이브러리 Counter
+ ▶ from coleections import Counter
+    var=Counter(list) ▶ 튜플이나 리스트의 원소의 개수를 세서, dict화
+    var.most_common(num) -▶ num개 만큼 내림차순 정렬, tuple화
+
+5. JSON
+ ▶ import json
+  json.load()
