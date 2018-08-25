@@ -1,0 +1,43 @@
+﻿▶[wisenut]
+1. web agent 차단 시,
+ conf - user agent: browser.xml(conf)
+ - 수정 -> <!-- 주석화 -->
+ - id로 잡기
+
+2. 원문수집룰 추가 (브런치와 같은 경우)
+ - #main -area script
+   #main-area iframe
+  프레임 iframe #id // frame #id
+# html의 경우, 프레임이 있을 경우 html경로 지정해서, 안에서 parsing
+
+3. 수집
+ - 인스타그램의 경우, 동적페이지 파싱 이용
+ - 수집한 제목의 경우, 일반 본문보다 중요한 경우가 많기에 가중치를 부여하는 경우도 존재
+
+4. 헤더
+ - 브라우저에서 서버로 전달하는 메시지
+ - 최대한 유저과 비슷하게 하기 위해서, 임의적으로 헤더를 추가
+ - F12 - 네트워크 - 헤더 - 헤더 추가
+
+5. abs
+ - 입력란에서 abs는 절대값ㄷ으로 src-href와 같은 url로 이동시 절댓값을 부여해 강제 이동
+
+6. node.js - Visual Studio Code
+ ▶ 자바스크립트 기반, 웹/서버 구축에 가볍고  특화된 언어
+ - 주요 특징은, Non-blocking I/O // 단일스레드 event loop
+ - 절차지향의 다른 언어와 달리 어떤 공간에서든 함수를 호출해 콜백하여 리턴값을 받는다.
+ - 서버와 웹환경에서는 업로드/다운로드 시 시간이 걸리기 때문에 다른 작업을 하기에 용이
+ - Event loop (병렬처리) : queue처럼 쌓이는 작업을 관리
+ - VSC에서 터미널 콘솔창 ctrl+shift+M
+
+7. NPM
+ ▶ node.js에서 패키지(프로젝트)관리 라이브러리
+ - pacakge.json을 생성하여 해당 프로젝트의 라이브러리를 자동관리/공유
+ - npm install lib으로 다른 라이브러리 설치 가능
+
+8. nodemon&forever
+ ▶ 자동반복 웹 실행/지속 라이브러리
+
+9. puppeteer
+ ▶ 동적페이지 스크래핑 라이브러리
+ - 깃허브 내 코드 사용 예시 존재
