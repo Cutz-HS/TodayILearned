@@ -1,0 +1,55 @@
+▶[wisenut]
+1. "대학생선교" - nLP
+ ▶ 대학 생선 교로 명사단위로 끊는 경우도 있다. 이러한 설정을 잡아주는 게 형태소 분석기의 퀄리티를 결정
+
+2. 수집 ▶ 색인 ▶ 검색의 단계
+
+3. 와이즈넛 검색 엔진 설치
+ ▶ http://localhost:7800/manager
+ - cmanager의 역할: 관리도구 및 색인기 재가동의 역할
+ ▶ 실습에서는 실제 데이터를 가져오지 않고, mysql DB에서 유저와 DB를 설정하고 데이터 색인
+
+4. 색인기
+ ▶ create table
+ - collection -id 1:1 korcham test - tagname
+ - datasource.xml -> 설정 / config.xml 설정
+ - 정적수집: 전체(static) -> insert type
+ - 동적수집: 첨부파일이나 resource (시간) // 변동데이터만 수집
+ - D-> queue table 내에서 설정
+    ▶ DB는 trigger(예외적으로 호출)에 굉장히 민감하다.
+    ▶ DB는 시간과 공간에 예민하다.
+
+5. cmd내에서 수집
+ ▶ bridge.cmd ../config/config.xml db korchamtest static
+ table - data 생성 - data가져오기
+ ▶ 수집기는 대체적으로 JAVA(범용 언어로 수정이 쉽다)
+    class형태로 수정하기 위해서 (파일이 하나의 클래스)
+
+6. 언어분석기(NLP)
+ ▶ 검색 단계에서 검색어를 분석하는 가장 기본이 형태소 분석
+  - TOKEN: 특수문자 단위로 끊어서 확인 // 카테고리 정보
+  - bigram: 단어를 n자로 끊어서 분석 // db like방식과 같다. // 제품번호
+  - kma: 사전검색(형태소 분석)
+
+7. 검색기
+ ▶ ISC(쿼리흡수기) -> 이를 searcher로 뿌려준다.
+ ▶ searcher들은 하나의 쓰레드로 여러대를 가동한다. (범용성과 빠른 실행을 위해)
+ ▶ 검색에서는 필드가중치, 필드포함수, 단어거리정보, 빈도수에 따라 가중치를 주고, 검색 우선순위를 정한다.
+ ▶ 검색의 순서는 ISC > SC > quering > filtering > sorting > ranking
+
+8. API
+ ▶ API는 query에 알맞는 데이터를 제공해주는 라이브러리형태
+ 수집기 - DB - 색인 -> 검색서버(isc)[API] -> page ui(js)
+
+9. 톰캣
+ ▶ 개인용 컴퓨터를 서버화할 수 있는 오픈소스
+ ▶ 이클립스내에서 서버를 통해서 setup과 실행을 할 수 있다.
+
+10. 검색과정
+ ▶ 검색 -> query -> 화면 -> request객체
+
+11. 분산구조
+ ▶ 크게 데이터분산/부하분산
+ - 데이터분산: 수집과 색인데이터를 DB에 분산 -> 검색에 이용 // 같은 데이터를 2대 이상의 서버구조에 저장 // 병렬식 이용
+ - 부하분산: ISC(검색어)가 다른서버에서도 검색어를 받아 분산
+ - 컬렉션분산
