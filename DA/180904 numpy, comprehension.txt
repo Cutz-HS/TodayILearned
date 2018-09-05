@@ -1,0 +1,42 @@
+1. strip() -> 공백제거 // split("") -> 빈공간을 기준으로 리스트
+
+2. 데이터 표준화 / 정규화
+ ▶ 두점 사이의 거리 -> 피타고라스(내적)
+ ▶ a-b길이의 제곱 = a길이제곱 + b길이제곱 - 2a길이b길이cos세타
+ ▶ 표준화는 평균을 0으로 만드는 정규분포화
+ ▶ 정규화는 di - min / max - min
+
+3. one hot encoding
+ ▶ 분류형 -> 하나를 hot (1, 0, 0) (0, 1, 0)
+   ▶ 1,2,3으로 value를 지정 시 연속형 변수로 간주
+
+4. csv lib
+ -> csv.writer(file, delimiter: ":") // 데이터 사이에 : 으로 구분
+ file.write(f, 'w', newline="") // line 없애기
+
+5. # -> line은 의미 없는 줄 표시
+
+6. numpy
+ - array - 행렬연산
+ - np.arange(n): 0~n까지의 array
+ - np -> array+s (s를 브로드캐스팅(행렬화))
+ - array<4 -> 요소마다 boolean 처리
+ - array[array<5] -> 조건만 출력
+ - reshape(면, 개수, 행, 열)
+ - d[0][0] -> 1행에서 1열로 접근
+ - d[0,0] -> 1행1열로 바로 접근
+ - matrix[::-1]: 역순
+ - matrix[::-1, ::-1]: 행 역순, 열 역순 바로 접근
+ - sum(axis=0/1) 0은 열 기준으로 덧셈 / 1은 행기준으로 덧셈
+
+7. format
+ "{}분".format(value) -> 삽입함수
+
+8. random.seed(777)
+ ▶ run마다 변화하는 random 변수를 고정시키는 함수
+
+9. PCA
+ ▶ 차원마다 고유벡터를 찾아서, 분산이 큰것을 줄여나가는 작업
+
+10. comprehension
+ setnum = set([sum(int(i) for i in str(j)) + for j in num])
