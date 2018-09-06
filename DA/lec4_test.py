@@ -1,4 +1,4 @@
-import Numpy as np
+import numpy as np
 
 '''
 다음 행렬과 같은 행렬이 있다.
@@ -30,4 +30,5 @@ print("A3: ", m[1,1:3])
 print("A4: ", m[1:,2])
 
 # Q5
-print("A5: ", m[:1,3:])
+print("A5: ", m[:2,3:])
+print(m[0,3:5],m[1,3:5])
