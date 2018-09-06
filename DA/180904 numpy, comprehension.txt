@@ -1,42 +1,64 @@
-1. strip() -> 공백제거 // split("") -> 빈공간을 기준으로 리스트
+[python-analysis]▶
+1. numpy: 계산과학lib, 다차원 배열도구 제공, 리스트를 개선한 array 객체 사용
+ - np.__version__
 
-2. 데이터 표준화 / 정규화
- ▶ 두점 사이의 거리 -> 피타고라스(내적)
- ▶ a-b길이의 제곱 = a길이제곱 + b길이제곱 - 2a길이b길이cos세타
- ▶ 표준화는 평균을 0으로 만드는 정규분포화
- ▶ 정규화는 di - min / max - min
+2. numpy array(동일한 type의 값)
+ - rank: 차원
+ - shape: 크기
+ ▶ np.array(list)
 
-3. one hot encoding
- ▶ 분류형 -> 하나를 hot (1, 0, 0) (0, 1, 0)
-   ▶ 1,2,3으로 value를 지정 시 연속형 변수로 간주
+3. 벡터화 연산
+ - array끼리 연산
+ - array.ndim: 행렬rank와 다르다 // array표시의 개수
+ - dtype()
+ - np.zeros((행, 열))  // ones
+ - np.zeoreslike(array) 기존 array size와 같은 zero martrix 생성
+ - np.eye(n) -> n숫자의 정사각 단위행렬 생성
+ - array[조건] -> true value 출력
+ - array[조건] = 지정
+ - np.arange(0, n) 0부터 n미만의 숫자 출력 (1차원 array)
 
-4. csv lib
- -> csv.writer(file, delimiter: ":") // 데이터 사이에 : 으로 구분
- file.write(f, 'w', newline="") // line 없애기
+4. 슬라이싱
+ # Q1
+ ▶ ndim을 통해서 차원 확인 // 차원을 넘어갈 땐 ","로 구분
+ - a[[0,1,2], [0,1,0]] ▶ [0,1] , [1,1] , [2,0] 3개 출력
 
-5. # -> line은 의미 없는 줄 표시
+5. 데이터 생성 함수
+ ▶ np.linespace(start, end, 개수) -> range동안의 개수 균등 간격 array 생성
+ - arange(range, dtype=np.float)
+  ▶ numpy type 지정-> np.int / np.str / np.char / np.float
 
-6. numpy
- - array - 행렬연산
- - np.arange(n): 0~n까지의 array
- - np -> array+s (s를 브로드캐스팅(행렬화))
- - array<4 -> 요소마다 boolean 처리
- - array[array<5] -> 조건만 출력
- - reshape(면, 개수, 행, 열)
- - d[0][0] -> 1행에서 1열로 접근
- - d[0,0] -> 1행1열로 바로 접근
- - matrix[::-1]: 역순
- - matrix[::-1, ::-1]: 행 역순, 열 역순 바로 접근
- - sum(axis=0/1) 0은 열 기준으로 덧셈 / 1은 행기준으로 덧셈
+6. 난수
+ ▶ np.random
+ - np.random.seed()
+ - np.random.normal(mean, std, n) -> 정규분포
+ - np.random.uniform(n) -> 균등분포
+ - np.random.randint(range, size) -> 균등분포 (독립확률변수)
 
-7. format
- "{}분".format(value) -> 삽입함수
+7. 파일입출력 (np)
+ ▶ np.save / np.savetxt / np.savez / np.load / np.loadtxt / np.loadz
+ - save -> 단일 array / binary / 확장자: npy
+ - savez -> 다중 array / binary / 확장자: npz / 리스트형태
+ - savetxt -> dtype 지정 가능
+ - loadtxt -> delimiter=" " -> 기준
+     ▶ dtype={ 'names':("colname" ... , 'formats':('i', 'S20', 'f')}
 
-8. random.seed(777)
- ▶ run마다 변화하는 random 변수를 고정시키는 함수
+8. dtype change
+ ▶ arr.astype(np.type)
 
-9. PCA
- ▶ 차원마다 고유벡터를 찾아서, 분산이 큰것을 줄여나가는 작업
+9. math
+ - np.log(array) -> ln
+ - np.sin / cos / tan / exp / sqrt
+ - np.dot (verctor inner product, matrix multiplication
+ - np.array_equal(a,b) -> 행렬전체비교
 
-10. comprehension
- setnum = set([sum(int(i) for i in str(j)) + for j in num])
+10. image
+ ▶ 1 pixel 마다 RGB(0~255) R3 vector 존재
+
+11. Axis
+ ▶ a.sum(axis=0) -> 열합 // 행을 기준으로 "동일한 인덱스"를 그룹화
+ ▶ a.sum(axis=1) -> 행합 // 열을 기준으로 "동일한 인덱스"를 그룹화
+
+12. matplotlib
+ - plt.plot(data, "o") -> dot모양을 O
+ ▶ 매개변수 bins=n -> 분포개수
