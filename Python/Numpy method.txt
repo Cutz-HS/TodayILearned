@@ -1,0 +1,93 @@
+[python-analysis]▶
+1. Array
+ - np.array() -> (리스트, 튜플, 배열)를 numpy array로 리턴
+ - np.arange(시작, 끝, 단위) -> range와 유사. array 반환
+ - np.ones / ones_like / zeros / zeros_like / empty / empty_like -> 0, 빈 array 리턴 // like는 기존의 array의 shape을 그대로 복사하여 생성
+ - np.eye, identity -> 단위행렬
+ - reshape(행, 렬, 깊이) -> arange와 같은 1차원 array에 차원을 부여
+
+2. Type
+ - np.float32, np.int32, np.bool, np.string, np.object
+ - np.astype(np.type) -> 안의 요소의 타입 변환
+
+3. 배열 상태
+ - np.shape(arr) -> 배열의 shape을 확인
+ - np.ndim(arr) -> 배열의 차원을 확인 // 선형대수의 rank와 차이 // []대괄호의 개수가 차원
+ 
+4. Boolean index
+ - array==비교대상 -> 비교대상과의 T/F array 배출
+ - array[array==비교대상] -> True값으로 구성된 array 배출
+ - array[array==비교대상, slice, dtype] -> 혼용 가능
+ - array[조건1] | & [조건2] 로 사용 가능 // and or 사용 불가능
+
+5. fancy index
+ - index 번호로 index
+ - argsort(axis, kind) -> sort 후에 index array 반환
+   - take(indexer, axis) -> index array를 적용하는 함수
+  ▶ axis -> 축 / 0은 행 (대다수의 기능은 행을 기준으로 동일 인덱스 처리: 열)
+                     1은 열 (열을 기준으로 동일 인덱스 처리: 행)
+                     2는 깊이 (깊이를 기준으로 동일 인덱스 처리: 행 열)
+ - arr[[index array1], [index array2]] -> (array1, array2) 튜플 형태로 index 처리
+
+6. Transpose
+ ▶ 전치행렬은 pivot(대각 index)을 기준으로 전치
+ - np.transpose(array)
+ - array.T
+ - np.dot(array1, array2) -> 벡터VS벡터의 경우 내적, 행렬VS행렬일 경우 행렬곱
+
+7. math
+ - np.sqrt(arr) -> 제곱근
+ - np.exp(arr) -> 지수
+ - np.abs() -> 절댓값
+ - np.square -> 제곱
+ - np.Exp -> 자연상수 e의 x제곱을 구한다
+ - np.log -> lim (1+1/n)의 x제곱 -> 밑이 e인 log를 구한다
+ - np.ceil -> 올림
+ - np.isnan -> 결측치(숫자인지 아닌지)를 T/F array로 반환
+ - np.cos / np.sin / np.tan -> 삼각함수 // arc도 가능
+ - np.add / subtract / multiply / divide / floor_divide -> 사칙연산 / floor는 몫만
+ - np.fmax / fmin -> 결측치 무시 후 처리
+
+8. where
+ - np.where(조건절, true 연산, false 연산)
+
+9. stat
+ - np.sum(arr, axis) -> axis=0, 행을 기준으로 동일 인덱스 열 합 // axis=1, 열 기준 행 합
+ - np.mean
+ - np. std, var
+ - np.min, max
+ - np.argmin, argmax -> 인덱스값
+ - np.cumsum / cumprod -> 누적합 / 누적곱
+
+10. any() / all()
+ ▶ any의 경우, 불리언 색인시 하나 이상의 True가 있다면, True
+ ▶ all의 경우, 불리언 색인시 모두가 True여야, True
+
+11. sort
+ - np.sort(axis) -> call by value로 copy본 반환
+ - np.unique -> 중복 원소 제거 후 정렬
+
+12. file load/save
+ - np.save / np.savez / np.savetxt -> 단일 / 다중 / txt
+ - np.load / np.loadz / np.loadtxt
+ ▶ txt 형식으로 불러 올 경우, delimiter=","와 같이 기준점을 지정해줘야 array로 리턴이 가능하다.
+
+13. Linear Algebra
+ - np.dot -> 내적과 행렬곱
+ - np.diag -> 1차원 배열로 반환
+ - np.linalg.eig -> 고유스칼라와 고유벡터 계산
+ - np.linalg.inv -> 역행렬 계산 (존재할 경우) -> 미지수 >= 식일 경우에만, 역행렬이 존재
+ - np.linalg.qr -> QR분해 (그람슈미트 과정) -> A=QR // a hat = eTa/eTe*b
+ - np.linalg.svd -> 특이값 분해
+ - np.linalg.solve -> Ax=b에서 x(미지수) 리턴
+ - np.linalg.lstsq -> 최소제곱해 -> 식 > 미지수일때 식을 유도하는 과정 (선형회귀)
+
+14. random
+ - np.random.seed(int) -> 난수 조정
+ - np.random.shuffle -> array index 섞기
+ - np.random.rand -> uniform dist
+ - np.random.randint -> int
+ - np.random.binomial -> binomial dist
+ - np.random.randn -> Normalized dist
+ - np.random.normal -> normal dist
+ - 
