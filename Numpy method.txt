@@ -84,7 +84,7 @@
 
 14. random
  - np.random.seed(int) -> 난수 조정
- - np.random.shuffle -> array index 섞기
+ - np.random.shuffle -> array index 섞기 ▶ 원본변환
  - np.random.rand -> uniform dist
  - np.random.randint -> int
  - np.random.binomial -> binomial dist
