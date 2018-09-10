@@ -1,0 +1,38 @@
+[python-analysis]▶
+1. 숫자처리
+ ▶ 1바이트는 부호처리에 사용 / 나머지는 지수 / 가수
+
+2. array index
+ - arr[[index1, index2]] 복수처리는 2차원
+ - arr[[index1]][[index2]] index1의 처리 후 index2처리
+
+3. Series
+ ▶ init에서 function으로 처리 시, 속성화
+ - Series([ ], index, dtype, fastpath)
+ - obj[['index, 'index']]
+ - obj[조건]
+ 
+4. obj.index 지정
+ - assign
+ - name -> 색인 / 컬럼 모두 가능
+
+5. df
+ - 딕셔너리 이용하여 생성
+ - col 순서, order -> 추가 시 nan col 생성
+ - values -> np array 2차원
+
+6. read_csv(delimiter="," 기본)
+ - sep="|" -> 분리기
+ - index_col=index -> col을 index로
+ - header = None -> 기본 index
+ - df(['col', 'col'])
+
+7. reindex
+ - df.reindex[new_idx] = 지정 -> 지정
+ - method = ffill / bfill -> NaN 표시, 앞의 값으로 대체 / 뒤의 값으로 대체
+ - fill_value = 직접 지정
+
+8. concatnate
+ ▶ pd.concat([df1, df2])
+ - join='outer'/'inner' -> 중복상관없이 추가 / 공통부분만 합치기 // axis
+ - join_axes([index])

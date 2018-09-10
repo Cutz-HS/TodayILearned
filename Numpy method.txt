@@ -5,6 +5,7 @@
  - np.ones / ones_like / zeros / zeros_like / empty / empty_like -> 0, 빈 array 리턴 // like는 기존의 array의 shape을 그대로 복사하여 생성
  - np.eye, identity -> 단위행렬
  - reshape(행, 렬, 깊이) -> arange와 같은 1차원 array에 차원을 부여
+ - np.array( dtype=' ')
 
 2. Type
  - np.float32, np.int32, np.bool, np.string, np.object
@@ -90,4 +91,8 @@
  - np.random.binomial -> binomial dist
  - np.random.randn -> Normalized dist
  - np.random.normal -> normal dist
- - 
+ 
+15. 결측치
+np.dropna()
+# pd.isnull()
+# pd.notnull()
