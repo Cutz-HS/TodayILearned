@@ -1,0 +1,70 @@
+[python-analysis]▶
+1. 중복치 제거
+ - unique(), value_counts()
+ - unique() -> 유일값
+ - Series=df['col']
+ - Series.value_counts()
+   - normalized=True / sort=True, Ascending=True / dropna=True
+   - bins=[0,1,2,3,4,5]
+
+ - duplicated().sum() 중복치 총합
+ - drop_duplicated()
+
+2. 표준화(standardization)
+ ▶ 직접적 상호 비교 불가 // 기계학습 모델과정에서 문제발생, 모델을 만들어도, 정확한 예측이 불가
+ - stat.loss는 불가능
+ - 평균을 0으로 편차를 1로 -> 표준화
+ - 정규성 검정 필요 -> library // sklearn
+
+3. 정규화(MinMaxScaler)
+ ▶ data - min / max - min -> 모델에 적정값이 아닌 이상치 -> NAN // W가 0으로 가까워도 문제점이 존재
+ - import scify.stats as ss
+ ss.zcore()
+ -from Sklearn.preproccessing import StandardScaler
+  - StandardScaler() -> instance 필요
+  - fit_transform()
+ 
+ ▶ 이상치 제거 후 표준화/정규화 수행 // 학습데이터 + test데이터 같이 표준화
+
+ ▶ 전처리 과정
+  1) hist
+  2) boxplot
+  3) mean/median
+  4) IQR
+  5) 조건절
+  6) 정규성검정
+
+ ▶ Sklearn.preprocessing import MinMaxScaler
+  - instance
+  -> fit_transform(array)
+
+4. robustScaler // StandardScaler
+ ▶ from sklearn.preprocessing import RobustScaler
+  - instance
+ - instance.fit_transform(data) 
+ ▶ fit / fit_transform()
+
+ - 정규분포 -> mean+sd*random.randn
+
+5. one-hot-encoder
+ ▶ from Sklearn.preprocessing import OneHotEncoder
+  - instance
+  - fitting -> ins.fit(data)
+             -> ins.active_features
+             -> ins.feature_indeces_ -> 범위 (0 2 5 10)
+  - data_new=np.array([[1,2,3]]) -> 범주
+   -> print(ins.transform(array).toarray()) -> OHE로 변경
+
+6. groupby
+ ▶ 별도의 열을 기준으로 그룹화
+  - df['col'].groupby(df['col'] -> obj
+  - grouped.size() -> 그룹단위의 크기
+  - df.groupby([[df['col], col2])['col']
+  - for i, j in groupby:
+     ▶ i는 group범주 2개면 (i, j) 로
+
+7. info
+ ▶ df.info() -> type, 개수 ..
+
+8. describe()
+ ▶ df.describe() -> 통계적 요약
