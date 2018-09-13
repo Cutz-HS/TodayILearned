@@ -1,0 +1,63 @@
+[python-analysis]▶
+# 연속형 변수 -> 이산화
+ 1. np. linspace(start, end, 개수)
+ 2. np.digitize(df, bins) -> 이산으로
+
+# 범주별 개수
+ 1. df.groupby(df.col).size() / value_counts()
+ 2. pd.get_dummis(df.c1_bin, prefix="")
+ 3. np.where()
+ 4. np.percentile(col, %(int))
+
+# 데이터 재구조화(reshaping: pivot, stack, melt)
+ 1. pivot()
+   -> (index / columns / values)
+ - pd.pivot_table(data, index, col, value)
+ - pd.MultiIndex.from_tuples([( , ), ( , ), ( , ), (, )])
+   - levels -> 내용, 범주 / labels -> 내용을 구성하는 순서
+ 2. stack / unstack
+  ▶ stack: 쌓다 // col행을 index(열로)
+  ▶ unstack: 풀다 // index(열)을 col행으로
+  - df.index -> level/label
+  - multiIndex indexing -> df['col']['col']
+ - unstack(level=0.1) -> tuple에서 뽑아오기
+ 3. df.reset_index()
+ 4. pd.melt
+  ▶ df -> variable과 values 모두 분류  
+  - id_vars=['col','col']
+  - var_name=' '
+  - value_name=' '
+  -> pivot(index, col, value)
+
+# sorting
+ ▶ df / tuple / list
+ - df.sort( kinds=(), na_position='first', 'last')
+ - tuple, sorted(data, key=lambda var: var[0], reverse=True/False)
+
+# 2개 참조: [[ ]]
+
+# df.assign(var=lambda x: x.col*x.col)
+ 
+# df.drop
+ ▶ df.drop(data, axis) -> 2개는 ['col', 'col']
+
+# del
+ ▶ 파이썬 기본 lib
+
+# matplotlip
+ ▶ import matplotlib as mpl
+ ▶ import matplotlib.pylab as plt
+ ▶ import matplotlib.pyplot as plt
+ - plt.plot([ ], [ ], 'rs--' -> red/square/--
+ - plt.xlim (start, end) -> x축 lim
+ - np.pi
+ - plt.xticks([a,b,c]) -> 지표
+ 1. plot(x1, y1, ' ', x2, y2, 's')
+ 2. plt.legend() -> category별 나타내기
+ ▶ Figure / Axis / Axes
+  - Figrue: 그래프 // 1개 이상의 Axe
+  - Axe: 그래프 하나를 나타내는 전체 축
+  - axis: x, y축
+ 3. plt.figure(figsize=(10,2)) -> figure의 사이즈
+  - f1=plt.figure(1)
+  - plt.gcf() -> figure객체를 그대로 가져와 사용 
