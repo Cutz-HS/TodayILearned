@@ -1,0 +1,65 @@
+[python-analysis]▶
+# 프로젝트
+ - 작은 것부터 실현 -> 완성 -> 정확도 향상 -> feature/preprocessing -> forecasting -> Visual
+ - 원하는 모델 구현
+ - 정형데이터 수집 -> 시간을 줄일 수 있는 기회가 크다.
+
+# apply
+ ▶ 요소들을 적용
+ - df['new'] = df['col'].apply(lambda var: "{: }".format(var))
+ # formatting
+  - {:+.2f} -> +는 부호
+  - {:0>2d} -> 2자리만큼 0을 채우거나 넘는다면 그대로
+  - {:,}
+ ▶ df[['dd', 'id_name']]='_'.join(x), axis=1 -> 행마다 join
+
+# groupby
+ ▶ df.groupby(dict) -> key: row // value: 그룹으로 -> 행 (default) / 열 (axis=1)
+   - groupby는 obj -> size() / sum() / count()
+ ▶ df.groupby(series) -> index: 그룹 // value: 그룹 index
+ ▶ 함수
+
+# 연속형변수를 기술통계량 집계함수
+ ▶ describe()
+ ▶ aggregrate() -> df/series.aggregate(집계함수) -> 매개변수 없이 함수명만
+
+# get
+ ▶ 범주형 변수에서 특정 항목을 기준으로 매핑
+ -> name col -> 새로운 col 생성 (범주형)
+  - mapping 함수 이용
+  1) dict -> func=lambda x: dict.get(x,x) -> dict 목표값을 가져오기
+   - df['new']=df.name.map(func)
+
+# split(x, int, axis) / hsplit / vsplit
+
+# 중복치처리
+ ▶ df.duplicated / np.unique
+
+# 집단
+ - np.interse1d(x, y)
+ - np.union1d(x,y)
+ - np.setdiff1d(x,y)
+ - np.setor1d(x,y)
+ - np.in1d(x,y)
+
+# 배열처리 합치기
+ ▶ 왼쪽에서 오른쪽으로
+  -np.r_[x] / np.hstack
+ ▶ 위아래로
+  -np.r_[[],[]] / np.c_[ ] / np.vstack([x,y]) ▶ 튜플 혹은 list로
+ ▶ 2개의 1차원 array -> 1차원을 2차원으로
+  -np_column_stack([x,y])
+
+# 차원증감소
+ ▶ np.ravel()
+  - order='C', 'F'(위에서 아래로)
+ ▶ np.flatten()
+
+# matplotlib
+ ▶ np.abs()
+ ▶ plt.scatter(x,y, c='c', data=data)
+ ▶ n, bins, patches = plt.hist (return value)
+ ▶ bins -> 막대의 개수
+ ▶ axis(x,x,y,y] -> x축 start, end / y축 start, end
+ ▶ density=1 -> 빈도수가 아닌 밀도 (확률밀도 = 넓이 = 1(확률))
+    -  plt.grid()
