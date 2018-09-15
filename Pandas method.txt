@@ -1,0 +1,12 @@
+[python-analysis]▶
+1. Series
+ ▶ 1차원 inex array
+ ▶ Series([ ], index, dtype, fastpath)
+ - indexing: obj[['a', 'b']]
+
+2. df
+ ▶ 2차원 matrix (labeled))
+ - DataFrame(data, column=[], index=[])
+
+3. read_csv / read_excel
+ ▶ pd.read_csv ('file' , header=None, nrow)
