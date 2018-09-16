@@ -1,12 +1,77 @@
 [python-analysis]▶
-1. Series
+# Series
  ▶ 1차원 inex array
  ▶ Series([ ], index, dtype, fastpath)
  - indexing: obj[['a', 'b']]
 
-2. df
+# df
  ▶ 2차원 matrix (labeled))
  - DataFrame(data, column=[], index=[])
 
-3. read_csv / read_excel
+# read_csv / read_excel
  ▶ pd.read_csv ('file' , header=None, nrow)
+
+# 시계열
+ ▶ pd.date_range("날", "날-날-날")
+ - reindex(method=ffill/bfill, fore / back value fit, fill_value=Na, ' ' ...)
+
+# 데이터 합치기
+ ▶ pd.concat([df, df], axis=0/1, join)
+   - join='outer' -> 중복 상관없이 추가
+           'inner' -> 공통부분만 합치기 (교집함)
+   - join_axes([index]) -> index를 그대로 사용
+   - ingore_index (index 무시)
+   - keys -> 계층구조 df.ix['key']
+ ▶ append(series, ignore_index, verigy_integrity) -> 시리즈의 열이 행으로 삽입, 인덱스가 없을 경우 열 생성
+
+ ▶ df.join/merge (merge는 속도가 빨라 많이 사용된다)
+  - df+df
+  - merge(left, right, outer, inner..)
+  - suffixes -> overlapping col의 이름 정하기
+  - on='key' -> key를 기준으로 합치기
+  - indicator = True / False -> 부가정보
+  - left_index=T/F // right_index=T/F
+ ▶ join
+  -> df.join(other, how='left,right,inner,outer')
+
+# 결측치 처리
+ ▶ pd.isnull / notnull
+  - df.isnull().sum() -> col별 na 합
+ ▶ fillna(method='ffill/bfill')
+ ▶ dropna(method='pad'(정방향), limit=1) 1칸
+ ▶ np.where( ) // pd.where(조건, 거짓)
+
+ ▶ interpolate(method='values') -> 선형적으로 nan값을 대체 (1/n)
+ ▶ df.replace({기존key:value}, {기존key:새로운value})
+
+# 중복치 처리
+ ▶ df.duplicated(['col']) 
+  - keep='first'/'last'
+  - keep=False -> 중복치 true
+ ▶ np.unique(), value_counts()
+ 
+# 연속 -> 이산
+ - np.linspace(start, end, 개수)
+ - np.digitize(df, bins)
+ - pd.get_dummis(df['c1_bin'], prefix=' ') -> 구간을 보여주는 함수 : categorical -> dummy / indicator range
+
+# 데이터 재구조화: reshping: 
+ ▶ pivot()
+   - index:
+   - columns
+   - values
+ ▶ pivot_table(data)
+   - from_tumples([ (  ,  ), ( , )]
+     -levels(범주) , labels( 내용을 구성하는 순서)
+ ▶ stack / unstack
+  - stack -> colnames를 col로
+  - unstack -> col을 colnames로 ( level=0,1)..
+ ▶ mel(녹이다) -> varinace(index) / value의 series로 변환
+
+# groupby
+ ▶ df.groupby(dict) -> key는 row / value는 그룹으로 행(defualt)
+   ▶ groupby는 obj로 출력 // 출력을 위해서는 count(), sum()의 명령어 필요
+ ▶ df.groupby(series) -> index는 그룹 / value는 그룹index
+
+# apply
+ ▶ df['new'] = df['col'].apply(lambda var: " ".format(x) 의 형태로 formatting 변화
