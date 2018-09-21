@@ -1,0 +1,18 @@
+# Standardization -> scale factor(M, V)만 안다면, 복원이 가능하다.
+ - from sklearn import preprocessing as pp
+  -> pp.scale(X)
+  -> var=StandardScaler() ▶ PipeLine 
+  # pp내에서 fit / transform
+   ▶ fit -> 데이터가 나눠져 있을 경우, 해당 데이터에 fit하여 나머지 전처리
+   ▶ fit 이후에 transform을 할 경우, fit한 데이터의 factor에 맞춰 transform
+
+# MinMaxScaler [0, 1]
+ - var=pp.MinMaxScaler()
+ -    =var.fit_transform(X)
+
+# robust_scale(X) -> Median/IQR -> outlier 영향을 감소
+# minmax_scale(X) -> 최소최대 [0, 1]
+# maxabs_scale(X) -> 절댓값 [0, 1]
+
+# Normalization -> 각각의 변환요소가 다르다. -> 각각 원래 크기를 알아야 변환
+ - normalize()
