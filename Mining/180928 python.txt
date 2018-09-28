@@ -1,0 +1,28 @@
+﻿[python-analysis]▶
+# Review
+ ▶ 2R zigzag array
+  - 미리 2차원 array를 생성하고, index로 접근
+
+# 함수를 매개변수를 넣을 때, 매개변수의 지정은 임의적이다.
+
+# 딕셔너리
+  -> key 중복 X
+  -> 순서 X -> stack을 따로따로 저장, 효율, 저장
+  -> DB query: select * table name; distinct
+
+# dict 정렬
+ ▶ list = sorted(dict.items(), key=lambda var: var[1], reverse=True)
+
+# operator
+ ▶ item.getter(1) -> 2번째 값 순서
+
+# konlpy
+from konlpy import Twitter
+twit = Twitter()
+twit.pos()
+
+# '\r\n' -> 유닉스계열에서 \n은 해당 위치에서 행 다음
+
+# 부동소수점에러는 만날 일이 적다.
+# overflow는 주의해야 한다. int
+# 단 long은 메모리를 많이 차지한다.
