@@ -1,0 +1,21 @@
+﻿[python-analysis]▶
+# 정규식
+ ▶ import re
+ - re.complie(pattern).match(str)
+ - [가-힣][a-Z]....
+
+# count()
+ ▶ list.count(value) -> list내에서 value의 count return
+
+# 메뉴 함수
+ ▶ command = lambda : fun()
+
+# 함수에서 글로벌 선언 -> 중요
+
+# 중위값 -> index의 가운데 / 혹은 가운데 + 가운데+1 / 2
+
+#size
+▶ import os.path
+▶ import math
+ -> os.path.getsize()
+ -> math.sqrt(square)
