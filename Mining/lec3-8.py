@@ -5,7 +5,7 @@ import math
 # 함수 선언
 def loadImage(fname):
     global inW, inH, outW, outH, inImage, outImage, window, canvas, paper, filename
-    fsize = os.path.getsize()
+    fsize = os.path.getsize(fname)
     inH = inW = int(math.sqrt(fsize))
     inImage = []
     for i in range(inH):
@@ -33,6 +33,26 @@ def saveFile():
 def exitFile():
     global inW, inH, outW, outH, inImage, outImage, window, canvas, paper, filename
     pass
+
+def equal():
+    global inW, inH, outW, outH, inImage, outImage, window, canvas, paper, filename
+    # 출력 메모리의 크기를 결정
+    outW = inW
+    outH = inH
+    outImage = []
+    for i in range(outH):
+        tmpList = []
+        for k in range(outW):
+            tmpList.append(0)
+        outImage.append(tmpList)
+    for i in range(inH):
+        for j in range(inW):
+            outImage[i][j] = inImage[i][j]
+    display()
+
+def display():
+    global inW, inH, outW, outH, inImage, outImage, window, canvas, paper, filename
+    
 
 
 # 변수 선언

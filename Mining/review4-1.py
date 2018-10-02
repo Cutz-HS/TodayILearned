@@ -1,4 +1,4 @@
-# Q4
+# Q1
 
 from tkinter import *
 from tkinter.filedialog import *
@@ -8,7 +8,6 @@ import operator
 def openFile():
     global photo
     fileName = askopenfilename(parent=window, filetypes=(("GIF 파일", "*.gif"), ("모든 파일", "*.*")))
-    label1.configure(text=fileName)
     photo = PhotoImage(file = fileName)
     pLabel.configure(image=photo)
     pLabel.image = photo
@@ -90,13 +89,16 @@ def analyzeGIF():
     rMax, rMin = countList1[-1], countList1[0]
     gMax, gMin = countList2[-1], countList2[0]
     bMax, bMin = countList3[-1], countList3[0]
+    txt = "rmax/rmin: " + str(rMax) + str(rMin) +"\n" + " gmax/gmin: " + str(gMax) + str(gMin) +"\n"+ " bmax/bmin: " + str(bMax) + str(bMin) + "\n" + " r,g,b mean: " + str(rMean) + " " +  str(gMean) + " " + str(bMean) + "\n" + " r,g,b median: " + str(rMid) + " " + str(gMid) + " " + str(bMid)
+    labelTxt.configure(text=txt)
         
     print("r max: ", countList1[-1], " / r min: ", countList1[0], 
           " / r mean: ", rMean , " / r median: ", rMid)
     print("g max: ", countList2[-1], " / g min: ", countList2[0], 
           " / g mean: ", gMean , " / g median: ", gMid) 
     print("b max: ", countList3[-1], " / b min: ", countList3[0], 
-          " / b mean: ", bMean , " / b median: ", bMid)     
+          " / b mean: ", bMean , " / b median: ", bMid)   
+    
 
 # 변수선언
 window = None
@@ -110,9 +112,7 @@ window.title("Memo")
 window.geometry("400x400")
 mainMenu = Menu(window)
 window.config(menu=mainMenu)
-txt = "rmax/rmin: " + str(rMax) + str(rMin) + " gmax/gmin: " + str(gMax) + str(gMin) + " bmax/bmin: " + str(bMax) + str(bMin) + "\n" + " r,g,b mean: " + str(rMean) +  str(gMean) + str(bMean) + "\n" + " r,g,b median: " + str(rMid) + str(gMid) + str(bMid)
 labelTxt = Label(window, font=("바탕체", 10))
-labelTxt.configure(text=txt)
 labelTxt.pack()
 
 fileMenu = Menu(mainMenu)
