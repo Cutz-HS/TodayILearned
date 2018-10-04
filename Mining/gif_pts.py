@@ -5,76 +5,99 @@ from tkinter.filedialog import *
 from tkinter.simpledialog import *
 import operator
 
-
-def loadImage_gif(fname) :
-    global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo
-    global inImageR, inImageG, inImageB, outImageR, outImageG, outImgageB
-    photo = PhotoImage(file=filename)
-    inW = photo.width()
-    inH = photo.height()
-    inImage = []
-    tmpList = []
-    for i in range(inH):
-        tmpList = []
-        for k in range(inW) :
-            tmpList.append([0, 0, 0])
-        inImage.append(tmpList)
+# 클래스 선언
+class Gif:
+    def __init__(self, window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo, 
+                 inImageR, inImageG, inImageB, outImageR, outImageG, outImgageB):
+        self.window, self.canvas, self.paper, self.filename = window, canvas, paper, filename
+        self.inImage, self.outImage, self.inW, self.inH, self.outW, self.outH = inImage, outImage, inW, inH, outW, outH
+        self.inImageR, self.inImageG, self.inImageB = inImageR, inImageG, inImageB
+        self.outImageR, self.outImageG, self.outImgageB = outImageR, outImageG, outImgageB
+        self.pLabel = None
         
-    for  i  in range(inH):
-        for  k  in  range(inW):
-            r, g, b = photo.get(k, i)
-            inImage[i][k] = [r, g, b]
-    photo = None
-
-def display_gif():
-    global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo, paper_copy
-    if  canvas != None :
-        canvas.destroy()
-    window.geometry(str(outH+inH) + 'x' + str(outW+inW))
-    canvas = Canvas(window, width=outW, height=outH)
-    paper = PhotoImage(width=outW, height=outH)
-    canvas.create_image((outW/2, outH/2), image=paper, state='normal')
-    for i in range(outH):
-        for k in range(outW):
-            data = outImage[i][k]
-            paper.put('#%02x%02x%02x' % (data, data, data), (k,i))
-    canvas.pack(side=RIGHT)
-    photo = PhotoImage(width=outW, height=outH)
-    pLabel.configure(image=paper_copy)
-
-def display_first_gif(self):
-    global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo, paper_copy
-    if  canvas != None :
-        canvas.destroy()
-    window.geometry(str(outH*2) + 'x' + str(outW))
-    canvas = Canvas(window, width=outW, height=outH)
-    paper = PhotoImage(width=outW, height=outH)
-    paper_copy = paper.copy()
-    canvas.create_image((outW/2, outH/2), image=paper, state='normal')
-    for i in range(outH):
-        for k in range(outW):
-            data = outImage[i][k]
-            paper.put('#%02x%02x%02x' % (data[0], data[1], data[2]), (k,i))
-            paper_copy.put('#%02x%02x%02x' % (data[0], data[1], data[2]), (k,i))
-    canvas.pack(side=RIGHT)
-    pLabel.configure(image=paper_copy)
-        
-def equal_gif():
-    global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo
-    outW = inW
-    outH = inH
-    outImage = []
-    tmpList = []
-    for i in range(outH):
+    def loadImage(self, fname) :
+        global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo
+        global inImageR, inImageG, inImageB, outImageR, outImageG, outImgageB
+        photo = PhotoImage(file=filename)
+        inW = photo.width()
+        inH = photo.height()
+        inImage = []
         tmpList = []
-        for k in range(outW):
-            tmpList.append([0, 0, 0])
-        outImage.append(tmpList)        
-    for  i  in  range(inH):
-        for  k  in  range(inW):
-            outImage[i][k] = inImage[i][k]
-    display_first()
+        for i in range(inH):
+            tmpList = []
+            for k in range(inW) :
+                tmpList.append([0, 0, 0])
+            inImage.append(tmpList)
+            
+        for  i  in range(inH):
+            for  k  in  range(inW):
+                r, g, b = photo.get(k, i)
+                inImage[i][k] = [r, g, b]
+        photo = None
 
+    def openFile(self) :
+        global window, canvas, paper, filename,inImage, outImage,inW, inH, outW, outH, photo
+        filename = askopenfilename(parent=window,
+                                   filetypes=(("그림파일", "*.raw; *.gif"), ("모든파일", "*.*")))
+        loadImage(filename)
+        equal()
+
+    def display(self):
+        global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo, paper_copy
+        if  canvas != None :
+            canvas.destroy()
+        window.geometry(str(outH+inH) + 'x' + str(outW+inW))
+        canvas = Canvas(window, width=outW, height=outH)
+        paper = PhotoImage(width=outW, height=outH)
+        canvas.create_image((outW/2, outH/2), image=paper, state='normal')
+        for i in range(outH):
+            for k in range(outW):
+                data = outImage[i][k]
+                paper.put('#%02x%02x%02x' % (data, data, data), (k,i))
+        canvas.pack(side=RIGHT)
+        photo = PhotoImage(width=outW, height=outH)
+        pLabel.configure(image=paper_copy)
+    
+    def display_first(self):
+        global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo, paper_copy
+        if  canvas != None :
+            canvas.destroy()
+        window.geometry(str(outH*2) + 'x' + str(outW))
+        canvas = Canvas(window, width=outW, height=outH)
+        paper = PhotoImage(width=outW, height=outH)
+        paper_copy = paper.copy()
+        canvas.create_image((outW/2, outH/2), image=paper, state='normal')
+        for i in range(outH):
+            for k in range(outW):
+                data = outImage[i][k]
+                paper.put('#%02x%02x%02x' % (data[0], data[1], data[2]), (k,i))
+                paper_copy.put('#%02x%02x%02x' % (data[0], data[1], data[2]), (k,i))
+        canvas.pack(side=RIGHT)
+        pLabel.configure(image=paper_copy)
+            
+    def equal(self):
+        global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo
+        outW = inW
+        outH = inH
+        outImage = []
+        tmpList = []
+        for i in range(outH):
+            tmpList = []
+            for k in range(outW):
+                tmpList.append([0, 0, 0])
+            outImage.append(tmpList)        
+        for  i  in  range(inH):
+            for  k  in  range(inW):
+                outImage[i][k] = inImage[i][k]
+        display_first()
+    
+    def saveFile(self) :
+        global window, canvas, paper, filename,inImage, outImage,inW, inH, outW, outH
+        pass
+    
+    def exitFile(self) :
+        global window, canvas, paper, filename,inImage, outImage,inW, inH, outW, outH
+        pass
 
 #def addImage(num):
 #    global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH
@@ -344,54 +367,56 @@ panYN = False
 sx, sy, ex, ey = [0] * 4
 inImage, outImage = [], []
 ## main
-window = Tk()
-window.geometry('400x400')
-window.title('영상 처리&데이터 분석 Ver 0.05')
-window.bind("<Button-1>", mouseClick)
-window.bind("<ButtonRelease-1>", mouseDrop)
-photo = PhotoImage()
-pLabel = Label(window, image=photo)
-pLabel.pack(side=LEFT)
 
-mainMenu = Menu(window)
-window.config(menu=mainMenu)
-fileMenu = Menu(mainMenu)
-mainMenu.add_cascade(label='파일', menu=fileMenu)
-fileMenu.add_command(label='열기', command=openFile)
-fileMenu.add_command(label='저장', command=saveFile)
-fileMenu.add_separator()
-fileMenu.add_command(label='종료', command=exitFile)
-
-pixelMenu = Menu(mainMenu)
-mainMenu.add_cascade(labe='화소점처리', menu=pixelMenu)
-pixelMenu.add_command(label='동일영상', command=equal)
-pixelMenu.add_command(label='밝게하기', command=lambda : addImage(1))
-pixelMenu.add_command(label="어둡게하기", command=lambda : addImage(2))
-#pixelMenu.add_command(label='밝게하기(곱연산)', command=lambda: addImage(3))
-#pixelMenu.add_command(label="어둡게하기(나눗셈)", command=lambda: addImage(4))
-#pixelMenu.add_command(label='AND연산', command=lambda: addImage(5))
-#pixelMenu.add_command(label="OR연산", command=lambda: addImage(6))
-#pixelMenu.add_command(label='XOR연산', command=lambda: addImage(7))
-#pixelMenu.add_command(label='반전', command=lambda: addImage(8))
-#pixelMenu.add_command(label='감마', command=lambda: addImage(9))
-#pixelMenu.add_command(label='파라볼라(Cap)', command=lambda: addImage(10))
-#pixelMenu.add_command(label='파라볼라(Cup)', command=lambda: addImage(11))
-#pixelMenu.add_command(label='이진화', command=lambda: addImage(12))
-#pixelMenu.add_command(label='범위강조', command=lambda: addImage(13))
-
-#geoMenu = Menu(mainMenu)
-#mainMenu.add_cascade(label='기하학처리', menu=geoMenu)
-#geoMenu.add_command(label='상하반전', command=lambda: direct(1))
-#geoMenu.add_command(label='좌우반전', command=lambda: direct(2))
-#geoMenu.add_command(label='화면이동', command=panImage)
-#geoMenu.add_command(label='줌아웃', command=zoomOut)
-#geoMenu.add_command(label='줌인(forward)', command=lambda: zoomIn(1))
-#geoMenu.add_command(label='줌인(backward)', command=lambda: zoomIn(2))
-#
-#analyzeMenu = Menu(mainMenu)
-#mainMenu.add_cascade(label='데이터분석', menu=analyzeMenu)
-#analyzeMenu.add_command(label='평균값', command=lambda: a_average(1))
-#analyzeMenu.add_command(label='최댓값&최솟값', command=a_minmax)
-#analyzeMenu.add_command(label='절사평균', command=lambda: a_average(2))
-
-window.mainloop()
+if __name__ == "__main__":
+    window = Tk()
+    window.geometry('400x400')
+    window.title('영상 처리&데이터 분석 Ver 0.05')
+    window.bind("<Button-1>", mouseClick)
+    window.bind("<ButtonRelease-1>", mouseDrop)
+    photo = PhotoImage()
+    pLabel = Label(window, image=photo)
+    pLabel.pack(side=LEFT)
+    
+    mainMenu = Menu(window)
+    window.config(menu=mainMenu)
+    fileMenu = Menu(mainMenu)
+    mainMenu.add_cascade(label='파일', menu=fileMenu)
+    fileMenu.add_command(label='열기', command=openFile)
+    fileMenu.add_command(label='저장', command=saveFile)
+    fileMenu.add_separator()
+    fileMenu.add_command(label='종료', command=exitFile)
+    
+    pixelMenu = Menu(mainMenu)
+    mainMenu.add_cascade(labe='화소점처리', menu=pixelMenu)
+    pixelMenu.add_command(label='동일영상', command=equal)
+    pixelMenu.add_command(label='밝게하기', command=lambda : addImage(1))
+    pixelMenu.add_command(label="어둡게하기", command=lambda : addImage(2))
+    #pixelMenu.add_command(label='밝게하기(곱연산)', command=lambda: addImage(3))
+    #pixelMenu.add_command(label="어둡게하기(나눗셈)", command=lambda: addImage(4))
+    #pixelMenu.add_command(label='AND연산', command=lambda: addImage(5))
+    #pixelMenu.add_command(label="OR연산", command=lambda: addImage(6))
+    #pixelMenu.add_command(label='XOR연산', command=lambda: addImage(7))
+    #pixelMenu.add_command(label='반전', command=lambda: addImage(8))
+    #pixelMenu.add_command(label='감마', command=lambda: addImage(9))
+    #pixelMenu.add_command(label='파라볼라(Cap)', command=lambda: addImage(10))
+    #pixelMenu.add_command(label='파라볼라(Cup)', command=lambda: addImage(11))
+    #pixelMenu.add_command(label='이진화', command=lambda: addImage(12))
+    #pixelMenu.add_command(label='범위강조', command=lambda: addImage(13))
+    
+    #geoMenu = Menu(mainMenu)
+    #mainMenu.add_cascade(label='기하학처리', menu=geoMenu)
+    #geoMenu.add_command(label='상하반전', command=lambda: direct(1))
+    #geoMenu.add_command(label='좌우반전', command=lambda: direct(2))
+    #geoMenu.add_command(label='화면이동', command=panImage)
+    #geoMenu.add_command(label='줌아웃', command=zoomOut)
+    #geoMenu.add_command(label='줌인(forward)', command=lambda: zoomIn(1))
+    #geoMenu.add_command(label='줌인(backward)', command=lambda: zoomIn(2))
+    #
+    #analyzeMenu = Menu(mainMenu)
+    #mainMenu.add_cascade(label='데이터분석', menu=analyzeMenu)
+    #analyzeMenu.add_command(label='평균값', command=lambda: a_average(1))
+    #analyzeMenu.add_command(label='최댓값&최솟값', command=a_minmax)
+    #analyzeMenu.add_command(label='절사평균', command=lambda: a_average(2))
+    
+    window.mainloop()
