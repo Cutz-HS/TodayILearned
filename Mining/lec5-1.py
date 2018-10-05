@@ -28,6 +28,7 @@ def openFile():
         loadImage_gif(filename)
         equal_gif()
         return
+    else: gif = False
     loadImage(filename) # 파일 -> 입력메모리
     equal() # 입력메모리 -> 출력메모리
 
@@ -416,14 +417,14 @@ def embossing():
                 if n > 2: n = 0 
     for i in range(int(scale/2), inH - int(scale/2)):
         for j in range(int(scale/2), inW - int(scale/2)):
-            outImage[i][j] = np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2) , j - int(scale/2) : j + scale - int(scale/2)] * mask) + 127
+            outImage[i][j] = np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2), j - int(scale/2) : j + scale - int(scale/2)] * mask) + 127
             if outImage[i][j] > 255: outImage[i][j] = 255
             elif outImage[i][j] < 0: outImage[i][j] = 0
     display()
 
 def blurring(num):
     if gif:
-        blurring_gif()
+        blurring_gif(num)
         return
     global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo
     scale = askinteger("scale(3,5,7,9)", "정수", minvalue=1, maxvalue=10)
@@ -434,7 +435,7 @@ def blurring(num):
     mask = mask * (1/np.square(scale))
     for i in range(int(scale/2), inH - int(scale/2)):
         for j in range(int(scale/2), inW - int(scale/2)):
-            outImage[i][j] = int(np.sum(inImage[i-int(scale/2):i+scale-int(scale/2),j-int(scale/2):j+scale-int(scale/2)] * mask))
+            outImage[i][j] = int(np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2), j - int(scale/2) : j + scale - int(scale/2)] * mask))
             if num == 1:
                 outImage[i][j] = inImage[i][j] - outImage[i][j]
             if outImage[i][j] > 255: outImage[i][j] = 255
@@ -443,7 +444,7 @@ def blurring(num):
     
 def gausian_blurring():
     if gif:
-        Gausian_blurring_gif()
+        gausian_blurring_gif()
         return
     global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo
     outW, outH = inW, outH
@@ -452,14 +453,14 @@ def gausian_blurring():
     mask = np.array([[1./16., 1./8., 1./16.], [1./8., 1./4., 1./8.], [1./16., 1./8., 1./16.]])
     for i in range(int(scale/2), inH - int(scale/2)):
         for j in range(int(scale/2), inW - int(scale/2)):
-            outImage[i][j] = int(np.sum(inImage[i-int(scale/2):i+scale-int(scale/2),j-int(scale/2):j+scale-int(scale/2)] * mask))
+            outImage[i][j] = int(np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2), j - int(scale/2) : j + scale - int(scale/2)] * mask))
             if outImage[i][j] > 255: outImage[i][j] = 255
             elif outImage[i][j] < 0: outImage[i][j] = 0
     display()
 
 def sharpening(num):
     if gif:
-        sharpening_gif()
+        sharpening_gif(num)
         return
     global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo
     outW, outH = inW, outH
@@ -471,7 +472,7 @@ def sharpening(num):
         mask = np.array([[-1./9., -1./9., -1./9.], [-1./9., 8./9., -1./9.], [-1./9., -1./9., -1./9.]])
     for i in range(int(scale/2), inH - int(scale/2)):
         for j in range(int(scale/2), inW - int(scale/2)):
-            outImage[i][j] = int(np.sum(inImage[i-int(scale/2):i+scale-int(scale/2),j-int(scale/2):j+scale-int(scale/2)] * mask))
+            outImage[i][j] = int(np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2), j - int(scale/2) : j + scale - int(scale/2)] * mask))
             if outImage[i][j] > 255: outImage[i][j] = 255
             elif outImage[i][j] < 0: outImage[i][j] = 0
     display()
@@ -873,7 +874,7 @@ def embossing_gif():
     for i in range(int(scale/2), inH - int(scale/2)):
         for j in range(int(scale/2), inW - int(scale/2)):
             for k in range(3):
-                outImage[i][j] = np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2) , j - int(scale/2) : j + scale - int(scale/2): k] * mask) + 127
+                outImage[i][j] = np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2), j - int(scale/2) : j + scale - int(scale/2), k] * mask) + 127
             outImage[i][j][outImage[i][j] > 255] = 255
             outImage[i][j][outImage[i][j] < 0] = 0
     display()
@@ -888,11 +889,10 @@ def blurring_gif(num):
     mask = mask * (1/np.square(scale))
     for i in range(int(scale/2), inH - int(scale/2)):
         for j in range(int(scale/2), inW - int(scale/2)):
-            outImage[i][j] = int(np.sum(inImage[i-int(scale/2):i+scale-int(scale/2),j-int(scale/2):j+scale-int(scale/2)] * mask))
-            if num == 1:
-                outImage[i][j] = inImage[i][j] - outImage[i][j]
-            if outImage[i][j] > 255: outImage[i][j] = 255
-            elif outImage[i][j] < 0: outImage[i][j] = 0
+            for k in range(3):
+                outImage[i][j] = np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2), j - int(scale/2) : j + scale - int(scale/2), k] * mask) + 127
+            outImage[i][j][outImage[i][j] > 255] = 255
+            outImage[i][j][outImage[i][j] < 0] = 0
     display()
     
 def gausian_blurring_gif():
@@ -903,9 +903,10 @@ def gausian_blurring_gif():
     mask = np.array([[1./16., 1./8., 1./16.], [1./8., 1./4., 1./8.], [1./16., 1./8., 1./16.]])
     for i in range(int(scale/2), inH - int(scale/2)):
         for j in range(int(scale/2), inW - int(scale/2)):
-            outImage[i][j] = int(np.sum(inImage[i-int(scale/2):i+scale-int(scale/2),j-int(scale/2):j+scale-int(scale/2)] * mask))
-            if outImage[i][j] > 255: outImage[i][j] = 255
-            elif outImage[i][j] < 0: outImage[i][j] = 0
+            for k in range(3):
+                outImage[i][j] = np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2), j - int(scale/2) : j + scale - int(scale/2), k] * mask) + 127
+            outImage[i][j][outImage[i][j] > 255] = 255
+            outImage[i][j][outImage[i][j] < 0] = 0
     display()
 
 def sharpening_gif(num):
@@ -919,11 +920,11 @@ def sharpening_gif(num):
         mask = np.array([[-1./9., -1./9., -1./9.], [-1./9., 8./9., -1./9.], [-1./9., -1./9., -1./9.]])
     for i in range(int(scale/2), inH - int(scale/2)):
         for j in range(int(scale/2), inW - int(scale/2)):
-            outImage[i][j] = int(np.sum(inImage[i-int(scale/2):i+scale-int(scale/2),j-int(scale/2):j+scale-int(scale/2)] * mask))
-            if outImage[i][j] > 255: outImage[i][j] = 255
-            elif outImage[i][j] < 0: outImage[i][j] = 0
+            for k in range(3):
+                outImage[i][j] = np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2), j - int(scale/2) : j + scale - int(scale/2), k] * mask) + 127
+            outImage[i][j][outImage[i][j] > 255] = 255
+            outImage[i][j][outImage[i][j] < 0] = 0
     display()
-
 
     
 ## 변수선언 init
