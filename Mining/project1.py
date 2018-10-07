@@ -316,9 +316,13 @@ def direct(num):
                 outImage[outW-1-i][k] = inImage[i][k]
             if num == 2:
                 outImage[i][outH-1-k] = inImage[i][k]
+            
     display()
     
 def panImage():
+    if gif:
+        panImage_gif()
+        return
     global panYN
     panYN = True
 
@@ -327,8 +331,7 @@ def mouseClick(event):
     global sx, sy, ex, ey, panYN
     if not panYN:
         return
-    if gif:
-        mouseClick_gif(event)
+    if not panYN_gif:
         return
     sx = event.x
     sy = event.y
@@ -338,15 +341,12 @@ def mouseDrop(event):
     global sx, sy, ex, ey, panYN
     if not panYN:
         return
-    if gif:
-        mouseDrop_gif(event)
-        return
     ex = event.x
     ey = event.y
     mx = sx - ex
     my = sy - ey
-    outW = inW
-    outH = inH
+    outW = inW*2
+    outH = inH*2
     outImage = []
     tmpList = []
     for i in range(outH):
@@ -479,20 +479,6 @@ def sharpening(num):
             elif outImage[i][j] < 0: outImage[i][j] = 0
     display()
     
-def merge():
-    if gif:
-        merge_gif()
-        return
-    global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo
-    outW, outH = inW, inH
-    oldImage = inImage[:]
-    new_file = askopenfilename(parent=window, filetypes=(("그림파일", "*.raw"), ("모든파일", "*.*")))
-    loadImage(new_file)
-    newImage = inImage[:]
-    inImage = (np.array(oldImage) + np.array(newImage)) / 2
-    outImage = np.array(inImage[:], dtype=np.int32)
-    display()
-    
 ''' ######################### GIF 처리 공간 ######################### '''
 def loadImage_gif(fname) :
     global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo
@@ -558,6 +544,8 @@ def display_first_gif():
                 paper_copy.put('#%02x%02x%02x' % (data[0], data[1], data[2]), (k,i))
     threading.Thread(target=putPixel).start()
     canvas.pack()
+    canvas.bind("<Button-1>", mouseClick)
+    canvas.bind("<ButtonRelease-1>", mouseDrop)
         
 def display_copy_gif():
     global window, canvas, pLabel, paper, filename, inImage, outImage, inW, inH, outW, outH, photo, paper_copy
@@ -805,19 +793,14 @@ def a_minmax_gif():
     label1.pack()
     label2.pack()
 
-    
-def mouseClick_gif(event):
-    global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo
-    global sx, sy, ex, ey, panYN
-    if not panYN:
-        return
-    sx = event.x
-    sy = event.y
+def panImage_gif():
+    global panYN_gif
+    panYN_gif = True
 
 def mouseDrop_gif(event):
     global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo
-    global sx, sy, ex, ey, panYN
-    if not panYN:
+    global sx, sy, ex, ey, panYN_gif
+    if not panYN_gif:
         return
     ex = event.x
     ey = event.y
@@ -838,7 +821,7 @@ def mouseDrop_gif(event):
             if 0 < i-mx < outH and 0 < k-my < outW:
                 outImage[i-mx][k-my] = inImage[i][k]
     panYN = False
-    display_gif()
+    display()
     
 def zoomOut_gif():
     global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo
@@ -881,14 +864,11 @@ def embossing_gif():
     global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo
     scale = askinteger("scale(3,5,7,9)", "정수", minvalue=1, maxvalue=10)
     outW, outH = inW, outH
-    if int(scale) % 2 == 0: embossing_gif()
+    if int(scale) % 2 == 0: embossing()
     # mask matrix
     mask = np.zeros([scale, scale], dtype=np.int32)
     mask_num = np.array([-1, 1, 0])
     n = 0
-    # rgb를 hsi로 미리 모두 변환
-    inImage = rgb2hsi(inImage)
-    outImage = np.array(outImage, dtype=np.float64)
     for i in range(scale):
         for j in range(scale):
             if i == j:
@@ -898,11 +878,9 @@ def embossing_gif():
     for i in range(int(scale/2), inH - int(scale/2)):
         for j in range(int(scale/2), inW - int(scale/2)):
             for k in range(3):
-                outImage[i][j][k] = np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2), j - int(scale/2) : j + scale - int(scale/2), k] * mask)
-    # hsi를 rgb로 변환
-    outImage = hsi2rgb(outImage) + 127
-    outImage[outImage > 255] = 255
-    outImage[outImage < 0] = 0
+                outImage[i][j][k] = np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2), j - int(scale/2) : j + scale - int(scale/2), k] * mask) + 127
+            outImage[i][j][outImage[i][j] > 255] = 255
+            outImage[i][j][outImage[i][j] < 0] = 0
     display_gif()
 
 def blurring_gif(num):
@@ -913,17 +891,12 @@ def blurring_gif(num):
     # mask matrix
     mask = np.ones([scale, scale], dtype=np.float32)
     mask = mask * (1/np.square(scale))
-    # rgb를 hsi로 미리 모두 변환
-    inImage = rgb2hsi(inImage)
-    outImage = np.array(outImage, dtype=np.float64)
     for i in range(int(scale/2), inH - int(scale/2)):
         for j in range(int(scale/2), inW - int(scale/2)):
             for k in range(3):
-                outImage[i][j][k] = np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2), j - int(scale/2) : j + scale - int(scale/2), k] * mask)
-    # hsi를 rgb로 변환
-    outImage = hsi2rgb(outImage)
-    outImage[outImage > 255] = 255
-    outImage[outImage < 0] = 0
+                outImage[i][j][k] = np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2), j - int(scale/2) : j + scale - int(scale/2), k] * mask) + 127
+            outImage[i][j][outImage[i][j] > 255] = 255
+            outImage[i][j][outImage[i][j] < 0] = 0
     display_gif()
     
 def gausian_blurring_gif():
@@ -932,17 +905,12 @@ def gausian_blurring_gif():
     # mask matrix
     scale = 3
     mask = np.array([[1./16., 1./8., 1./16.], [1./8., 1./4., 1./8.], [1./16., 1./8., 1./16.]])
-    # rgb를 hsi로 미리 모두 변환
-    inImage = rgb2hsi(inImage)
-    outImage = np.array(outImage, dtype=np.float64)
     for i in range(int(scale/2), inH - int(scale/2)):
         for j in range(int(scale/2), inW - int(scale/2)):
             for k in range(3):
-                outImage[i][j][k] = np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2), j - int(scale/2) : j + scale - int(scale/2), k] * mask)
-    # hsi를 rgb로 변환
-    outImage = hsi2rgb(outImage)
-    outImage[outImage > 255] = 255
-    outImage[outImage < 0] = 0
+                outImage[i][j][k] = np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2), j - int(scale/2) : j + scale - int(scale/2), k] * mask) + 127
+            outImage[i][j][outImage[i][j] > 255] = 255
+            outImage[i][j][outImage[i][j] < 0] = 0
     display_gif()
 
 def sharpening_gif(num):
@@ -954,97 +922,19 @@ def sharpening_gif(num):
         mask = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]])
     if num == 2:
         mask = np.array([[-1./9., -1./9., -1./9.], [-1./9., 8./9., -1./9.], [-1./9., -1./9., -1./9.]])
-    # rgb를 hsi로 미리 모두 변환
-    inImage = rgb2hsi(inImage)
-    outImage = np.array(outImage, dtype=np.float64)
     for i in range(int(scale/2), inH - int(scale/2)):
         for j in range(int(scale/2), inW - int(scale/2)):
             for k in range(3):
-                outImage[i][j][k] = np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2), j - int(scale/2) : j + scale - int(scale/2), k] * mask)
-     # hsi를 rgb로 변환
-    outImage = hsi2rgb(outImage)
-    outImage[outImage > 255] = 255
-    outImage[outImage < 0] = 0
+                outImage[i][j][k] = np.sum(inImage[i - int(scale/2) : i + scale - int(scale/2), j - int(scale/2) : j + scale - int(scale/2), k] * mask) + 127
+            outImage[i][j][outImage[i][j] > 255] = 255
+            outImage[i][j][outImage[i][j] < 0] = 0
     display_gif()
 
 def rgb2hsi(rgb):
-    '''
-    RGB 행렬을 받아 모두 연산처리
-    '''
-    rgb = np.array(rgb, dtype=np.float64)
-    hsi = np.zeros(np.shape(rgb), dtype=np.float64)
-    # 2중 for문으로 h, s, i를 각각 연산
-    for k in range(np.shape(rgb)[0]):
-        for j in range(np.shape(rgb)[1]):
-            r, g, b = rgb[k][j][0], rgb[k][j][1], rgb[k][j][2]
-            h, s, i = 0, 0, 0
-            i = np.mean(rgb[k][j])
-            if r == g == b:
-                s, h = 0, 0
-                hsi[k][j] = [h, s, i]
-                continue
-            s = 1 - (3 / np.sum(rgb[k][j]) * np.min(rgb[k][j]))
-            angle = 0.5 * ((r - g) + (r - b)) / np.sqrt((r - g) * (r - g) + ((r - b) * (g - b)))
-            h = np.arccos(angle)
-            if b >= g:
-                h = np.pi*2 - h
-            hsi[k][j] = [h, s, i]
+    i = np.mean(rgb)
+    s = 1 - (3 / np.sum(rgb) * np.min(rgb))
     return hsi
 
-def hsi2rgb(hsi):
-    '''
-    hsi 행렬을 rgb행렬로 변환
-    '''
-    rgb = np.zeros(np.shape(hsi), dtype=np.float64)
-    # 2중 for문으로 모든 각각의 hsi를 연산
-    for k in range(np.shape(hsi)[0]):
-        for j in range(np.shape(hsi)[1]):
-            h, s, i = hsi[k][j][0], hsi[k][j][1], hsi[k][j][2]
-            r, g, b = 0, 0, 0
-            if s == 0:
-                rgb[k][j] = [i, i, i]
-                continue
-            elif h <= np.pi/3 * 2:
-                b = 1/3 * (1 - s)
-                r = 1/3 * (1 + (s * np.cos(h) / np.cos(np.pi/3 - h)))
-                g = 1 - (r + b)
-            elif np.pi/3 * 2 < h <= np.pi/3 * 4:
-                h = h - np.pi/3 * 2
-                g = 1/3 * (1 + (s * np.cos(h) / np.cos(np.pi/3 - h)))
-                r = 1/3 * (1 - s)
-                b = 1 - (r + g)
-            elif np.pi/3 * 4 < h <= np.pi * 2:
-                h = h - np.pi/3 * 4
-                g = 1/3 * (1 - s)
-                b = 1/3 * (1 + (s * np.cos(h) / np.cos(np.pi/3 - h)))
-                r = 1 - g - b
-            rgb[k][j] = np.array([r, g, b]) * i * 3
-    return np.array(rgb, dtype=np.int32)
-    
-def merge_gif():
-    global window, canvas, paper, filename, inImage, outImage, inW, inH, outW, outH, photo
-    outW, outH = inW, inH
-    oldImage = np.copy(inImage)
-    new_file = askopenfilename(parent=window, filetypes=(("그림파일", "*.gif"), ("모든파일", "*.*")))
-    photo = PhotoImage(file=new_file)
-    inW = photo.width()
-    inH = photo.height()
-    newImage = []
-    tmpList = []
-    for i in range(inH):
-        tmpList = []
-        for k in range(inW) :
-            tmpList.append(np.array([0, 0, 0]))
-        newImage.append(tmpList)
-    for  i  in range(inH):
-        for  k  in  range(inW):
-            r, g, b = photo.get(k, i)
-            newImage[i][k] = [r, g, b]
-    newImage = np.array(newImage)
-    photo = None
-    inImage = (np.array(oldImage) + np.array(newImage)) / 2
-    outImage = np.array(inImage[:], dtype=np.int32)
-    display_gif()
     
 ## 변수선언 init
 window, canvas, paper, filename = [None] * 4
@@ -1059,9 +949,9 @@ gif = False
 if __name__ == "__main__":
     window = Tk()
     window.geometry('500x500')
-    window.title('J Photo 1.0')
-    window.bind("<ButtonRelease-1>", mouseDrop)
+    window.title('영상 처리&데이터 분석 Ver 1.0')
     window.bind("<Button-1>", mouseClick)
+    window.bind("<ButtonRelease-1>", mouseDrop)
     
     mainMenu = Menu(window)
     window.config(menu=mainMenu)
@@ -1117,6 +1007,5 @@ if __name__ == "__main__":
     mainMenu.add_cascade(label='비교', menu=compareMenu)
     compareMenu.add_command(label='원본사진비교', command=display_copy)
     compareMenu.add_command(label='원본되돌리기', command=rollback)
-    compareMenu.add_command(label='사진합성하기', command=merge)
     
     window.mainloop()
