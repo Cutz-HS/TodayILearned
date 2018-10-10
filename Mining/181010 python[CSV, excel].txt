@@ -1,0 +1,29 @@
+﻿[python-analysis]▶
+[CSV]
+# json: dict 형태
+# dict -> 정렬이 없어서, 코딩할 때 주의 해야 한다.
+# dict 목록
+ -> import os
+   - for dirName, subDirList, fnames in os.walk(file)
+          os.path.join(dirname, fname)
+   - json.dump(jsonDic, filewriter, intent=4)
+
+[excel] -> 1개 파일에 work sheet 여러개
+ ▶ import xlrd
+ -> workbook = xlrd.open_workbook(file)
+ -> sheetcount = workbook.nsheets
+ -> sheet.cell_value(i, j)
+
+[interface]
+ ▶ 선택창 생성
+ -> listbox -> 선택, 라디오
+ -> listbox = Listbox(subwindow)
+ -> button = Button(subwindow, text='선택', command=None)
+ -> listbox.pack()
+ -> listbox.insert(END, sName)
+
+[Excel save]
+ # asksavefile(parent=window, mode='w', defaultextension='.xls'
+  -> filename = save.name
+  -> outwork = xlwt.Workbook()
+  -> outSheet = outWorkbook.add_sheet('sheet')
