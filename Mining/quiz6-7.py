@@ -10,10 +10,8 @@ import csv
 def drawSheet(cList) :
     global cellList
     if cellList == None or cellList == [] :
-        print('1111')
         pass
     else :
-        print('2222')
         for row in cellList:
             for col in row:
                 col.destroy()
@@ -143,16 +141,14 @@ def csvData04():
     dirName = askdirectory()
     file_list = glob.glob(os.path.join(dirName, "*.csv"))
     for file in file_list:
-        filereader = open(file, 'r', newline='')
-        csvReader = csv.reader(filereader)
-        header_list = next(csvReader)
-        csvList.append(header_list)
-        for row in filereader:
-            row = row.strip()
-            row_list = row.split(',')
-            csvList.append(row_list)   
-    filereader.close()
-    drawSheet(csvList)
+        print(file)
+#        csvList.append(header_list)
+#        for row in filereader:
+#            row = row.strip()
+#            row_list = row.split(',')
+#            csvList.append(row_list)   
+#    filereader.close()
+#    drawSheet(csvList)
 
 ## 전역 변수 ##
 csvList, cellList = [], []

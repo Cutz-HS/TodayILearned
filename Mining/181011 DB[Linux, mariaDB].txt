@@ -1,0 +1,90 @@
+﻿[python-analysis]▶
+[리눅스]
+# VM 실행
+ -> ctrl + alt + del -> 시스테 ㅁ강제 명령어
+
+# 설치(레드핫)
+ -> 장치, 광학드라이브, iso넣기
+ -> 재부팅 / 설치
+
+# 키보드
+ -> SW선택 -> GNOME
+ -> 파티션 SATA3 HDD 에서 SWAP
+ -> 깡통 sda1(swap) / sda2 (나머지)
+
+# ip - 네트워크
+ -> 인터넷 network -> 네이버 웹서버와 pc로 연결
+
+# root -> 루트 권한 외에 1명 이상의 사용자 필요
+
+# 리눅스
+ -> cd 이동 디렉토리
+ -> pwd 현재 디렉토리
+ -> 맨앞 슬래시 -> root
+ -> ls 파일 목록
+ -> ll 자세한 파일목록
+ -> cd direc 상대경로 // cd /direc 절대경로
+
+# vi
+ -> i: 편집모드
+ -> :q -> 종료 :w -> 저장 // :wq -> 저장 후 종료
+ -> yy : 복사
+ -> p 붙여넣기 // 수 + pp: 행 붙여넣기
+ -> dd 행 삭제 
+
+ -> su - : 관리자 자격
+ -> ls direc 해당 direc의 file
+ -> rm 제거
+ -> -cp -> 복사
+ -> touch -> 빈 파일 생성, 기존 파일이 존재한다면, 마지막 저장 전 시간으로 복원
+ -> mv -> 이동
+ -> rm mkdir -> direc 생성
+ -> rm -r -> 디렉 제거
+ -> cat 요약
+ -> less -> 페이지
+ -> shutdown --p now -> 부팅
+
+[group]
+# etc/group
+ -> 이름 / 비밀번호 / id / group id / alias / directory / shell
+ -> root 사용자 이름 / 비밀로번호 / 번호
+# tail dir -> 요약 설명
+ 
+# user add
+ -> useradd -g groupname username
+ -> 비멀번호: passwd username
+
+# 권한
+ -> su -username
+ -> ls-l sample.txt -> 소유와 허가권
+
+# 권한 수정
+ -> chmod 수 혹은 char표현 file.txt
+
+# 설치
+ -> mount 끊고, media -> cd-row에 강제 mount
+ -> umount /dev/cdrom
+ -> mount /dev/cdrom file directory
+
+# 의존성 문제: A에 의존하여 종속되기 때문에, 다 같이 설치
+
+# yum
+ -> 네트워크를 이용한 remove와 install
+
+[DB]
+# yum
+ -> Y패키지
+ -> anotehr -> reboot
+
+# 서비스가동(=서버 프로세스 -> background process)
+
+# 프로세스는 프로그램을 HDD에서 RAM으로 가져오는 과정, 눈에 보이는 프로세스를 foreground, 눈에 안 보이는 것 backgroud -> 프로세스는 2개도 가능하다.
+# 스레드는 작은 프로세서와 비슷한 의미로, 멀티프로세서 내에서 같은 프로그램을 실행할 때, 스레드들이 움직여 프록램을 실행한다. 동시 프로그램
+
+# DB의 원리
+ -> 서버와 클라이언트로 구성
+ -> 서버 DB는 클라이언트에게 Data를 허용하기 위해 port를 열어 두고 대기
+ -> 클라이언트는 서버 DB의 게이트웨이 IP와 port를 입력하고 접속
+ -> systemctl starts mariadb
+ -> systemct enable mariadb
+ -> friewall-config 포트 열기
