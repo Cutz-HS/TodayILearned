@@ -1,0 +1,14 @@
+﻿### Q1: DB, table, data 입력, 조회 ###
+
+CREATE DATABASE cutz;
+USE cutz;
+CREATE TABLE cutzTable(eNum INT, eName CHAR(5), salary BIGINT);
+INSERT INTO cutzTable VALUES(001, 'SDK', 0);
+INSERT INTO cutzTable VALUES(002, 'SDKj', 50000);
+INSERT INTO cutzTable VALUES(003, 'JSH', 777777777);
+SELECT * FROM cutzTable where salary > 49999;
+
+## Q1+: table type 변경, record 변경 ##
+ALTER TABEL cutzTable CHANGE salary salary BIGINT;
+UPDATE cutzTable SET salary = salary * 4;
+DELETE FROM cutzTable WHERE salary = 'SDKj';
