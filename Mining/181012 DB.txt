@@ -12,3 +12,52 @@ SELECT * FROM cutzTable where salary > 49999;
 ALTER TABEL cutzTable CHANGE salary salary BIGINT;
 UPDATE cutzTable SET salary = salary * 4;
 DELETE FROM cutzTable WHERE salary = 'SDKj';
+
+[DB]▶
+[DB 관계도]
+ # DBMS -> DB -> Table -> data
+ # 생성순서 또한 이 순서와 같다.
+ ▶ DBMS 설치(오라클, mySQL, maria..) -> DB구축 -> 테이블 생성 -> 데이터 저장(행) -> 활용
+ -> 데이터는 행 데이터로 삽입한다. 이름이 존재하지 않는다.
+ -> 열은 변수(필드), 이름이 존재할 수 있다. # 타입 지정 필수
+
+[query]
+ # 입장
+ -> linux에서 mysql -h localhost or 127.0.0.1 -u root(user) -p
+ -> SHOW DATABASES;
+ -> CREATE TABLE name (column, type);
+ # INSERT
+ -> INSERT INTO nametable VALUES ('ASDF', 'ASDF') ;
+ # SELECT
+ -> SELECT * FROM usertable;
+ # WHERE
+ -> SELECT * FROM usertable WHERE userID = ~
+
+[COL TYPE]
+ # vchar: 100글자 첫 지정 후, 데이터 입력 시 수정
+ # char: 무조건 100글자 지정
+ # bigint: long과 같은 type
+
+[레이블 수정]
+ -> ALTER TABLE tablename CHANGE table table "type"
+ -> UPDATE TABLE SET col = col 연산부분
+ -> DELETE FROM TABLE WHERE col == '~';
+
+[파이썬 sqlite3]
+ # import sqlite3
+ -> var = sqlite3.connect('dbfile 경로') // var.close()
+ -> cur = con.cursor() # 커서는 연결통로를 생성해서, execute와 commit, 받아오기 등을 모두 처리
+ -> query = ' '로 작성 한 뒤 execute
+ # 출력
+ -> select query 입력 후, cursor.fetchone()을 통해 받아오기 // fetchall()
+ # table name 목록만 받기
+ -> SELECT name FROM SQLITE-MASTER WHERE TYPE = table;
+ -> CUR.DESCRIPTION # 열 이름
+
+[파이썬 pymysql]
+ # file name
+ -> os.path.basename()
+ # import pymysql
+  -> pymysql.connect(host='192.168.226.128', user='biguser', password='1234', db='userDB', charset='utf8')
+ # table name
+ -> SELECT SHOW TABLES;
