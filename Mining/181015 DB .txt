@@ -1,0 +1,20 @@
+﻿### 마이닝 10강 ###
+[query]
+-> select * from tables limit 수;
+-> select count(*) from employees;
+-> select distincs colname from table;
+-> select * from table where col='value';
+-> drop table name;
+
+[primary key]
+-> 주요 키: 중복이 안되는 관련숫자에 부여되는 인덱스
+
+[pymysql]
+-> desc table name; (describe)
+-> cur.description -> 같은 기능
+
+[대용량 처리]
+-> query문 만을 text작성해서 text파일로 query 대량 실행 (dump)
+
+[메타 데이터]
+ -> 파일의 정보를 담은 데이터
