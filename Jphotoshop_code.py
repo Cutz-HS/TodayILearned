@@ -22,8 +22,8 @@ def loadImage(fname):
     
 def openFile():
     global window, canvas, paper, filename,inImage, outImage,inW, inH, outW, outH, photo, gif
-    filename = askopenfilename(parent=window, filetypes=(("그림파일", "*.raw; *.gif"), ("모든파일", "*.*")))
-    if filename[-3:] == "gif":
+    filename = askopenfilename(parent=window, filetypes=(("그림파일", "*.png;*.raw; *.gif"), ("모든파일", "*.*")))
+    if filename[-3:] == "gif" or filename[-3:] == "png":
         gif = True
         loadImage_gif(filename)
         equal_gif()
