@@ -377,7 +377,6 @@ def sqliteData02() :
         cur.execute(sql)
     except:
         pass
-
     for i in range(1, len(csvList)) :
         rowList = csvList[i]
         sql = "INSERT INTO " +  tableName + " VALUES("
@@ -386,9 +385,7 @@ def sqliteData02() :
         sql = sql[:-1]
         sql += ")"
         cur.execute(sql)
-
     con.commit()
-
     cur.close()
     con.close()  # 데이터베이스 연결 종료
     print('Ok!')

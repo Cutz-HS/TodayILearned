@@ -13,6 +13,7 @@ import pymysql
 from xlsxwriter import Workbook
 import xlrd
 import numpy as np
+import matplotlib.pyplot as plt
 
 ## 함수 선언부
 def loadImage(fname) :
@@ -426,6 +427,7 @@ def a_histogram_plt():
             countListR[r] += 1
             countListG[g] += 1
             countListB[b] += 1
+    plt.ion()
     plt.plot(countListR, 'r')
     plt.plot(countListG, 'g')
     plt.plot(countListB, 'b')

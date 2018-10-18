@@ -25,7 +25,7 @@ import xlwt
 import sqlite3
 import pymysql
 
-def drawSheet(cList) :
+def drawSheet(csvList) :
     global cellList
     if cellList == None or cellList == [] :
         pass
@@ -34,8 +34,8 @@ def drawSheet(cList) :
             for col in row:
                 col.destroy()
 
-    rowNum = len(cList)
-    colNum = len(cList[0])
+    rowNum = len(csvList)
+    colNum = len(csvList[0])
     cellList = []
     # 빈 시트 만들기
     for i in range(0, rowNum):
@@ -48,7 +48,7 @@ def drawSheet(cList) :
     # 시트에 리스트값 채우기. (= 각 엔트리에 값 넣기)
     for i in range(0, rowNum):
         for k in range(0, colNum):
-            cellList[i][k].insert(0, cList[i][k])
+            cellList[i][k].insert(0, csvList[i][k])
 
 def openCSV() :
     global  csvList, input_file
