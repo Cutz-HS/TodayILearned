@@ -1,0 +1,51 @@
+﻿[python-MLP]
+[머신러닝 유형]
+# supervised learning: 레이블 달린 예제로 학습, 데이터가 많을 경우 효과적인 학습
+# unsupervised learning: 데이터 패턴을 확인 -> 차원축소, 군집화
+# reinforcement: 동작의 적절성(right/wrong) -> feedback -> reword가 최대화되도록 수행학습
+ ▶ action selection, planning, policy learning
+
+[모델링 판단기준]
+-> dataset의 전처리 여부, 학습알고리즘의 선택/비교, parameter의 잘못된 튜닝
+
+[알고리즘]
+# 딥러닝 엔진 오픈소스: spark, mashout
+-> 추천엔진: KNN, SVM, logistic 유사성
+-> kinnect: Decision Tree, random forest -> 결정트리의 랜덤 추출하여 숲을 구성
+-> 클러스터: k-means, svd, DBscan(density-based spatial clustring, application with noise)
+# 딥러닝 엔진: tensorflow, keras
+ -> ANN, DNN, CNN, RNN, GAN
+# 클라우드기반 open API
+ -> 베이즈기반, Naive Bayes, Hidden Markov model, Bayesmulti network
+
+[AWS]
+# 장점: 모델링 등의 시간이 소요되는 작업을 클라우드 컴퓨팅 이용
+# 언어: C++, 파이썬, java(learng4j), R
+# OS: Linux(깔끔), windows -> tf, spyder, pycharm..
+
+[tensor-flow]
+# 구조: 다차원 array --> node를 오고가는 구조
+# edge: node를 연결하는 선
+# node: 함수
+# constant -> 상수 지정, dtype, shape
+# variable -> 변수지정, shape -> tf.random_normal([shape])을 안으로 가지고 있는 경우가 많다. W, b
+# eval -> print 역할
+# sess = Tf.Session() -> sess.close() 항상
+# sess.run([var1, var2, var3]) 다중 실행
+# tf.placehoder(변수의 type, shpae만 받아놓고, run시에 feed_dict로 입력)
+# [None, x] shape -> 데이터의 개수는 (행) 잘 모르기 때문에, 미정
+# tf.linspace (start, end, 단위개수)
+# tf.get_variable(<name>, <shape>, <initializer>)
+ ▶ 변수가 존재하는 지 확인, 검색, 없으면 shape, initializer 생성
+# tf.variable_scope(<scope_name>) -> 네임스페이스 관리
+with tf.variable_scope("shared_variable") as scope: 내에서 변수 범위를 실행 처리
+
+[tensor-board]
+tf.summary.scaler19
+tf.summary.histogram
+tf.summary.scaler("cost", cost)
+tf.summary_all()
+saver = tf.train.saver()
+var = tf.summary.FileWriter("dir", graph_def=sess.graph_def)
+--> prompt: tensorboard -logdir = dir
+http://localhost:6006
