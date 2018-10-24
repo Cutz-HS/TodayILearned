@@ -11,8 +11,8 @@ x_data = all_data["speed"]
 y_data = all_data["dist"]
 
 # 변수 #
-learning_rate = 0.002
-iteration = 5000
+learning_rate = 0.003
+iteration = 2000
 costList, wList = [], []
 
 # tf building #
@@ -39,11 +39,16 @@ with tf.Session() as sess:
     
     predict = sess.run(hypothesis, feed_dict={X: [30, 50]})
 
+w_sort_list = sorted(wList)
+
 print("속도 30일 때의 제동거리: ", predict[0])
 print("속도 50일 때의 제동거리: ", predict[1])
 plt.figure()
 plt.plot(x_data, y_data, 'rx')
 plt.plot(x_data, y_hat, 'b-')
 plt.show()
+
+plt.figure()
+plt.plot(w_sort_list, costList, 'y-')
 
 
