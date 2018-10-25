@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 ## 데이터 전처리 ##
 all_data = pd.read_csv("d:/data/prac_data/stock.csv", sep=",")
 X = all_data.iloc[:, :-1]
-y = all_data.iloc[:, -1]
+y = pd.DataFrame(all_data.iloc[:, -1])
 memoryList = []
 
 # scaling & rollback #
@@ -31,20 +31,20 @@ y_scale = standard(y)
 learning_rate = 0.03
 iteration = 10000
 
-## 이상치 처리 ##
-#print(X_scale.describe())
-#X_scale.boxplot() # Volume 칼럼에서만 이상치 발견
-q1, q3 = np.percentile(X_scale['Volume'], (25, 75))
-iqr = q3 - q1
-#print(X_scale[X_scale['Volume'] > q3 + (1.5 * iqr)]) # 70개의 이상치 제거
-X_scale = X_scale[X_scale['Volume'] < q3 + (1.5 * iqr)] # (1440, 4)
-idx = X_scale.index
-y_scale = y_scale[idx] # shape (1440, 1)
-
 ## train & test set 나누기 ##
 X_train, X_test, y_train, y_test = train_test_split(X_scale, y_scale, train_size=0.7, random_state=77)
-y_train = np.array(y_train).reshape(len(y_train), 1)
-y_test = np.array(y_test).reshape(len(y_test), 1)
+#y_train = np.array(y_train).reshape(len(y_train), 1)
+#y_test = np.array(y_test).reshape(len(y_test), 1)
+
+## 이상치 처리 ##
+#print(X_scale.describe())
+X_train.boxplot() # Volume 칼럼에서만 이상치 발견
+q1, q3 = np.percentile(X_train['Volume'], (25, 75))
+iqr = q3 - q1
+#print(X_scale[X_scale['Volume'] > q3 + (1.5 * iqr)]) # 70개의 이상치 제거
+X_iqr = X_train[X_train['Volume'] < q3 + (1.5 * iqr)] # (1002, 4)
+idx = X_iqr.index
+y_train = y_train[idx] # shape (1440, 1)
 
 ## tf building ##
 X = tf.placeholder(dtype=tf.float32, shape=[None, 4])
