@@ -1,0 +1,68 @@
+﻿[python-MLP]
+[logistic binary]
+# 0, 1 encoding --> 이산 변수의 결과값
+ Wx + b의 계산을 그대로 사용한 선형 회귀에서 0~1 사이의 분포값을 만들어주기 위해 sigmoid 함수 사용
+
+# sigmoid는 0일 때, 0.5 --> 0보다 작으면 0 // 0보다 커지면 1 --> 극한에 의해
+
+# cost
+ -> sigmoid를 cost함수에 그대로 사용할 수 없다 --> 굴곡진 gradient // local minima 문제
+ -> 로그를 사용해 평탄화 -log(-x) 와 log(-x)를 사용
+    -> mean(-y * log(h(x) - y) - (1-y) * log(1 - h(x))
+ -> 로그에서 미분을 하여 최대 우도 추정과 같은 개념으로 cost를 0으로 만들어 나가는 개념
+
+# 임계치
+ -> 확률로 나온 최대 우도를 0과 1로 분류하는 작업은 임계치에 의해 정해진다.
+ -> 임계치는 정확도와 재현율에 따라서 다르기 때문에, 주제마다의 최적 임계값을 연구자의 주관에 따라 정해야 한다.
+
+# 예측 코드
+ -> pre = tf.cast(hypothesis > 0.5, dtype)
+ -> acc = tf.reduce_mean(tf.cast(tf.equal(y, pre), dtype))
+
+[결정 경계]
+ -> 결정경계는 선형을 적용할 수 없는 경우가 존재한다. -> 이상치가 존재할 경우, 오차의 정규분포를 가정할 수 없다. [0, 1]의 분포이기 때문
+ -> 이상치가 경계 임계치를 작게 하여, 분류 오차가 증가한다.
+
+[epoch]: 전체 학습 횟수
+  # iteration: 학습 반복 횟수
+
+[상관분석]
+ -> 변수간의 관계 -> 직선 관계, 종속성(다중공선성), VIF, AIC, ROC그래프, 변수중요도chart 등
+
+[softmax & corss-entropy] --> multinomial / multilabel classification
+ # entropy는 혼탁한 정도
+ # multilabel은 binomial의 발전된 형태 --> class 하나 당, 각각의 W 벡터가 경계를 정한다. (one vs all)
+ # 각 class마다의 sigmoid(Wx+b)의 값을 softmax를 통과시켜 총 합이 1인 확률로 출력한다.
+ # cross-entropy-loss로 각각의 cost를 감소시킨다. (미분 식은 같다)
+ # softmax는 결국 출력층에서 class마다의 Wx+b를 확률 [0, 1]로 전환해주는 함수
+ # np.exp(y) / np.sum(np.exp(y)) = softmax(y) // y = h(x) = sigmoid(Wx+b)
+
+[queue runner]
+ # tf.train.string_input_produser -> 입력 데이터 셍성 // string_tensor(filename(dir))
+ # coord = tf.train.Coordinator()
+ # threads = tf.train.start_queue_runners(sess=sess, coord=coord)
+ # reader=tf.TextLineReader(queue)
+ # key, value = reader.read(queue)
+ # decode -> tf.decode_csv(value, record_defaults = [결측치 대체 값])
+ # stop -> coodrd
+ # coord.request_stop()
+ # coord.join(threads=threads)
+
+[batch]
+x_batch, y_batch = tf.train.batch([노드], batch_size= 수)
+sess.run
+
+[cross-entropy]
+# np.exp(y) / np.sum(np.exp(y), axis=1).reshape(len(y), 1)
+ -> Li = -log(softmax) 최대 우도 추정--> negative loss
+ -> y가 하나가 아니기 때문에 2항 미분이 불가능하다.
+ -> 최대 우도 추정에 의해 행렬 곱 후에 column (class)마다 sum 후에 평균으로 미분하여 w를 갱신
+ -> cross-entropy를 미분하면, 결국 선형 회귀의 미분식과 같다. --> 선, cost는 0을 향하도록, fit, 기울기가 0외 도면 오차는 수렴
+
+
+
+
+
+
+
+

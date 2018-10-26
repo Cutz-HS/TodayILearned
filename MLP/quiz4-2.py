@@ -21,7 +21,7 @@ sample_X_test = X_test[:1500, :]
 sample_y_test = y_test[:1500, :]
 
 ## hyper parameter ##
-learning_rate = 0.0000001
+learning_rate = 0.1
 epochs = 4000
 
 ## function ##
@@ -60,7 +60,7 @@ def gradientDescent(W, X, y):
         W = w_tmp.copy()
     return W, costList
 
-initial_W = np.random.normal(size=[X.shape[1], 1]) # (29, 1)
+initial_W = np.zeros(shape=[X.shape[1], 1]) # (29, 1)
 W, mincost = gradientDescent(initial_W, sample_X_train, sample_y_train)
 y_hat = hypothesis(W, sample_X_test)
 
@@ -79,18 +79,23 @@ print(accuracy(y, y_hat))
 
 
 ## tf로 나머지 처리 ##
-# sample 학습으로 learning_rate, learning ==> 0.00001, 4000 확인 #
+# sample 학습으로 learning_rate, learning ==> 0.1, 4000 확인 #
+# 학습 데이터: (199364, ), 검증 데이터: (85443, )
 import tensorflow as tf
+from sklearn.metrics import classification_report
+
+## 전처리 ##
+X_train, X_test = X_train[:, 1:], X_test[:, 1:] # X0항 제거
 
 ## tf buliding ##
-X = tf.placeholder(dtype=tf.float32, shape=[None, 29])
+X = tf.placeholder(dtype=tf.float32, shape=[None, 28])
 y = tf.placeholder(dtype=tf.float32, shape=[None, 1])
 
-W = tf.Variable(tf.random_normal([29, 1]), name="weight")
-b = tf.Variable(tf.random_normal([1], name="bias"))
+W = tf.Variable(tf.zeros([28, 1]), name="weight") # 랜덤일 때 NaN 발생
+b = tf.Variable(tf.zeros([1]), name='bias')
 hypothesis = tf.sigmoid(tf.matmul(X, W) + b)
 
-cost = -tf.reduce_mean(y * tf.log(hypothesis) + (1 - y) * tf.log(1 - hypothesis))
+cost = tf.reduce_mean(-y * tf.log(hypothesis) - (1 - y) * tf.log(1 - hypothesis))
 train = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cost)
 
 # 예측 % 정확도 tf building #
@@ -108,8 +113,16 @@ with tf.Session() as sess:
     y_hat_test, acc_test, pr_test = sess.run([hypothesis, accuracy, predict], 
                           feed_dict={X: X_test, y:y_test})
 
-print("검증 정확도: ",acc_test)
+print("검증 정확도: ", acc_test)
 
+## Confusion matrix ##
+both_test = pd.concat([pd.Series(y_test[:, 0]), pd.Series(y_hat_test[:, 0])], axis=1)
+both_test.columns = ["y_test", "probs"]
+both_test["y_pred"] = 0
+both_test.loc[both_test["probs"] > 0.5, "y_pred"] = 1
+print("\n<<Confusion Matrix>>\n\n", pd.crosstab(both_test['y_test'], both_test['y_pred'],
+      rownames = ["Actual"], colnames = ["Predicted"]))
+print("\n<<Classfication report>>\n\n", classification_report(y_test, pr_test))
 
 
 
