@@ -49,7 +49,7 @@ def sigmoid(W, X):
 
 def softmax(y):
     # 각각의 sigmoid 확률을 -L 로 만들어 준 뒤, softmax [0, 1]로 #
-    y = -np.log(1./y - 1)
+    y = -np.log((1. / y) - 1)
     return np.exp(y) / (np.sum(np.exp(y), axis=1)).reshape(len(y), 1)
 
 def hypothesis(W, X):
@@ -71,8 +71,8 @@ def gradientDescent(X, W, y):
     for i in range(epochs):
         cost_tmp = cost(W, X, y)
         costList.append(cost_tmp)
-#        if i % 100 == 0:
-#            print(cost_tmp)
+        if i % 100 == 0:
+            print(cost_tmp)
         wList.append(W)
         for j in range(0, len(w_tmp)): # feature(W)의 개수 + 1 (bias)
             w_tmp[j] = W[j] - ((learning_rate / m) * (np.sum((hypothesis(W, X) - y) * X[:, [j]], axis=0)))
