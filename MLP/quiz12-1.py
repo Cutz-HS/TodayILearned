@@ -131,8 +131,8 @@ logits = tf.matmul(L1, W2) + b2
 l2 = tf.nn.relu(logits)
 L2 = tf.nn.dropout(l2, keep_prob=keep_prob)
 
-W3 = tf.Variable(init([25, 10]), name="W3")
-b3 = tf.Variable(init([10]), name='b3')
+W3 = tf.Variable(init([25, 1]), name="W3")
+b3 = tf.Variable(init([1]), name='b3')
 logits = tf.matmul(L2, W3) + b3
 hypothesis = tf.nn.sigmoid(logits)
 
