@@ -108,7 +108,7 @@ y_train = np.array(y_train).reshape(len(y_train), 1)
 y_test = np.array(y_test).reshape(len(y_test), 1)
 
 # parameter #
-learning_rate = 0.01
+learning_rate = 0.1
 iteration = 5000
 keep_prob = tf.placeholder(dtype=tf.float32)
 
@@ -137,8 +137,9 @@ logits = tf.matmul(L2, W3) + b3
 hypothesis = tf.nn.sigmoid(logits)
 
 # cost #
-cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=hypothesis, labels=y))
-train = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
+cost = tf.reduce_mean(tf.square(hypothesis - y))
+#cost = tf.reduce_mean(-y * tf.log(hypothesis) - (1 - y) * tf.log(1 - hypothesis))
+train = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cost)
 
 # acc #
 predicted = tf.cast(hypothesis > 0.5, tf.float32)
