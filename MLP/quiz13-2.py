@@ -58,7 +58,6 @@ acc = len(y_pred[predict]) / len(y_test)
 # confusion matrix #
 print("\nKNN - <confusion matrics>\n", pd.crosstab(np.array(y_test).flatten(), np.array(y_pred).flatten(), rownames=["Actual"], colnames=["Predict"]))
 print("\nKNN - <classification matrics>\n", classification_report(y_test, y_pred))
-## confusion matrix와 classfication의 결과에 따라, 남성 재현율이 굉장히 낮음을 확인: 0.24 ##
 
 # ANN: 예측 시도 ##
 ### Q1+: deep learning (logistic) ###
@@ -131,6 +130,6 @@ for i in range(epochs):
         print(cost_sum)
         
 acc, y_hat = sess.run([accuracy, hypothesis], feed_dict={X: x_test, y: y_test, keep_prob: 1.0})
-print(acc) # 딥러닝 binary classification의 정확성도 0.8319 --> 낮다. 불가능
+print(acc)
 sess.close()
 # =================================================================================== #

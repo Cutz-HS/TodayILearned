@@ -248,7 +248,8 @@ predicted = tf.cast(hypothesis > 0.5, tf.float32)
 accuracy = tf.reduce_mean(tf.cast(tf.equal(predicted, y), dtype=tf.float32))
 
 ## session ##
-sess = tf.Session()
+gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.5)
+sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
 sess.run(tf.global_variables_initializer())
 
 for i in range(epochs):
